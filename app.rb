@@ -13,6 +13,7 @@ class App
   end
 
   def display_main_options
+    puts ''
     puts 'Welcome to your catalog manager!'
     puts ''
     puts 'Choose an option on the list:'
@@ -23,12 +24,13 @@ class App
   end
 
   def display_book_options
+    puts ''
     puts 'Books catalog'
     puts ''
     puts 'Choose an option on the list:'
     puts '-----------------------------'
     puts ''
-    puts ['1 - Create a book', '2 - List all books', '3 - Go to main menu', '4 - Save and exit'] 
+    puts ['1 - Add a book', '2 - Add a label', '3 - List books', '4 - List labels', '5 - Go to main menu', '6 - Save and exit'] 
     puts ''
   end
 
@@ -44,6 +46,15 @@ class App
   end
 
   def display_books
-    @book_list.each { |book| puts %(Publisher: "#{book.publisher}") }
+    @book_list.each_with_index { |book, index| puts "#{index + 1} - Publisher: #{book.publisher}" }
+  end
+
+  def display_labels
+    puts "     Title     |     Color     "
+    puts "-------------------------------"
+    @label_list.each do |label|
+      puts "     #{label.title}     |     #{label.color}     "
+      puts "-------------------------------"
+    end
   end
 end
