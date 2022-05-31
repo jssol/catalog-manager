@@ -6,7 +6,8 @@ class App
     puts 'Choose a catagory'
     puts '1 - Books'
     puts '2 - Music albums'
-    puts '3 - Games\n\n'
+    puts '3 - Games'
+    puts ''
     puts 'You can\'t choose now. App is still in development state.\n\n'
     print 'Press any key to close the app... '
   end
