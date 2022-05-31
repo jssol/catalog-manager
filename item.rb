@@ -35,7 +35,7 @@ class Item
       @label = label
       label.add_item(self)
     )
-    puts 'There is already a label. You can\'t change it' unless @label.nil?
+    
     return if label.is_a?(Label)
 
     puts 'Wrong parameter. This method only accepts instances of the Label class'
