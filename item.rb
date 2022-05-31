@@ -18,6 +18,7 @@ class Item
   def add_author(author)
     author.is_a?(Author) && @author.nil? && (
       @author = author
+      author.add_item(self)
     )
     puts 'there is an author already. you can\'t change it' unless @author.nil?
     puts 'you passed wrong pramater. Rhis method only accept instances of Author class' unless author.is_a?(Author)
