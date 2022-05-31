@@ -67,34 +67,46 @@ def main_menu(app)
   app.menu = 'main'
 end
 
+def main_menu_actions(decision)
+  puts 'Please choose one of the options on the list' unless '1234'.include?(decision)
+  decision == '4' && exit_app
+  methods = [
+    method(:display_book_console), method(:display_music_console), method(:display_game_console)
+  ]
+  '123'.include?(decision) && methods[decision.to_i - 1].call(app)
+end
+
+def book_menu_actions(decision)
+  puts 'Please choose one of the options on the list' unless '123456'.include?(decision)
+  decision == '6' && exit_app
+  methods = [
+    method(:add_book), method(:add_label_to_book), method(:display_books), method(:display_labels), method(:main_menu)
+  ]
+  '12345'.include?(decision) && methods[decision.to_i - 1].call(app)
+end
+
 def exit_app
   puts 'Thank you for using this app!'
   exit
+end
+
+def menu_type(menu, decision)
+  case menu
+  when 'main'
+    main_menu_actions(decision)
+  when 'book'
+    book_menu_actions(decision)
+  else
+    puts 'Consider adding items to your catalog!'
+    exit_app
+  end
 end
 
 def take_action(app)
   print '--> '
   decision = gets.chomp
   puts ''
-  case app.menu
-  when 'main'
-    puts 'Please choose one of the options on the list' unless '1234'.include?(decision)
-    decision == '4' && exit_app
-    methods = [
-      method(:display_book_console), method(:display_music_console), method(:display_game_console)
-    ]
-    '123'.include?(decision) && methods[decision.to_i - 1].call(app)
-  when 'book'
-    puts 'Please choose one of the options on the list' unless '123456'.include?(decision)
-    decision == '6' && exit_app
-    methods = [
-      method(:add_book), method(:add_label_to_book), method(:display_books), method(:display_labels), method(:main_menu)
-    ]
-    '12345'.include?(decision) && methods[decision.to_i - 1].call(app)
-  else
-    puts 'Consider adding items to your catalog!'
-    exit_app
-  end
+  menu_type(app.menu, decision)
 end
 
 def main
