@@ -24,7 +24,6 @@ class App
   end
 
   def display_book_options
-    puts ''
     puts 'Books catalog'
     puts ''
     puts 'Choose an option on the list:'

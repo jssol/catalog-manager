@@ -29,6 +29,7 @@ end
 def add_label_to_book(app)
   if app.book_list.empty?
     puts 'No books are available to be labelled!'
+    puts ''
     return
   end
   puts 'Choose the book to label by number:'
@@ -50,24 +51,28 @@ end
 def display_books(app)
   if app.book_list.empty?
     puts 'No books are available!'
+    puts ''
     return
   end
   app.display_books
+  puts ''
 end
 
 def display_labels(app)
   if app.label_list.empty?
     puts 'No labels are available!'
+    puts ''
     return
   end
   app.display_labels
+  puts ''
 end
 
 def main_menu(app)
   app.menu = 'main'
 end
 
-def main_menu_actions(decision)
+def main_menu_actions(app, decision)
   puts 'Please choose one of the options on the list' unless '1234'.include?(decision)
   decision == '4' && exit_app
   methods = [
@@ -76,7 +81,7 @@ def main_menu_actions(decision)
   '123'.include?(decision) && methods[decision.to_i - 1].call(app)
 end
 
-def book_menu_actions(decision)
+def book_menu_actions(app, decision)
   puts 'Please choose one of the options on the list' unless '123456'.include?(decision)
   decision == '6' && exit_app
   methods = [
@@ -90,12 +95,12 @@ def exit_app
   exit
 end
 
-def menu_type(menu, decision)
-  case menu
+def menu_type(app, decision)
+  case app.menu
   when 'main'
-    main_menu_actions(decision)
+    main_menu_actions(app, decision)
   when 'book'
-    book_menu_actions(decision)
+    book_menu_actions(app, decision)
   else
     puts 'Consider adding items to your catalog!'
     exit_app
@@ -106,7 +111,7 @@ def take_action(app)
   print '--> '
   decision = gets.chomp
   puts ''
-  menu_type(app.menu, decision)
+  menu_type(app, decision)
 end
 
 def main
