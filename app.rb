@@ -46,15 +46,17 @@ class App
   end
 
   def display_books
-    @book_list.each_with_index { |book, index| puts "#{index + 1} - Publisher: #{book.publisher}" }
+    @book_list.each_with_index do |book, index|
+      puts "#{index + 1} - Publisher: #{book.publisher}"
+    end
   end
 
   def display_labels
-    puts '     Title     |     Color     '
-    puts '-------------------------------'
+    puts '       Title       |       Color       '
+    puts '-----------------------------------'
     @label_list.each do |label|
-      puts "     #{label.title}     |     #{label.color}     "
-      puts '-------------------------------'
+      puts "       #{label.title}       |       #{label.color}       "
+      puts '-----------------------------------'
     end
   end
 end
