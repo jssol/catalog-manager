@@ -1,6 +1,7 @@
 require 'date'
+require_relative './label'
 require_relative './author'
-# item classs
+
 class Item
   attr_reader :label, :author, :date
 
@@ -25,11 +26,20 @@ class Item
       @author = author
       author.add_item(self)
     )
-    puts 'there is an author already. you can\'t change it' unless @author.nil?
-    puts 'you passed wrong pramater. Rhis method only accept instances of Author class' unless author.is_a?(Author)
+    puts 'There is already an author. You can\'t change it' unless @author.nil?
+    puts 'Wrong parameter. This method only accept instances of the Author class' unless author.is_a?(Author)
   end
 
-  def add_label; end
+  def add_label(label)
+    label.is_a?(Label) && @label.nil? && (
+      @label = label
+      label.add_item(self)
+    )
+    puts 'There is already a label. You can\'t change it' unless @label.nil?
+    return if label.is_a?(Label)
+
+    puts 'Wrong parameter. This method only accepts instances of the Label class'
+  end
 
   def move_to_archive
     @archived = true if can_be_archived?
