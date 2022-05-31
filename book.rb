@@ -1,7 +1,6 @@
 require 'date'
 require_relative './item'
 
-# book class
 class Book < Item
   attr_reader :publisher, :cover_state
 
