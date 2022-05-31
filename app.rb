@@ -19,7 +19,7 @@ class App
     puts 'Choose an option on the list:'
     puts '-----------------------------'
     puts ''
-    puts ['1 - Books', '2 - Music albums', '3 - Games', '4 - Save and exit'] 
+    puts ['1 - Books', '2 - Music albums', '3 - Games', '4 - Save and exit']
     puts ''
   end
 
@@ -30,7 +30,8 @@ class App
     puts 'Choose an option on the list:'
     puts '-----------------------------'
     puts ''
-    puts ['1 - Add a book', '2 - Add a label', '3 - List books', '4 - List labels', '5 - Go to main menu', '6 - Save and exit'] 
+    puts ['1 - Add a book', '2 - Add a label', '3 - List books', '4 - List labels', '5 - Go to main menu',
+          '6 - Save and exit']
     puts ''
   end
 
@@ -50,11 +51,11 @@ class App
   end
 
   def display_labels
-    puts "     Title     |     Color     "
-    puts "-------------------------------"
+    puts '     Title     |     Color     '
+    puts '-------------------------------'
     @label_list.each do |label|
       puts "     #{label.title}     |     #{label.color}     "
-      puts "-------------------------------"
+      puts '-------------------------------'
     end
   end
 end
