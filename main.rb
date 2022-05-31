@@ -28,7 +28,7 @@ end
 
 def add_label_to_book(app)
   if app.book_list.empty?
-    puts 'No books are available to be labelled!'
+    puts 'The are no available books to be labelled!'
     puts ''
     return
   end
@@ -50,7 +50,7 @@ end
 
 def display_books(app)
   if app.book_list.empty?
-    puts 'No books are available!'
+    puts 'No books available!'
     puts ''
     return
   end
@@ -60,7 +60,7 @@ end
 
 def display_labels(app)
   if app.label_list.empty?
-    puts 'No labels are available!'
+    puts 'No labels available!'
     puts ''
     return
   end
