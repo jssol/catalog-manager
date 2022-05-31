@@ -7,7 +7,7 @@ class Book < Item
   def initialize(date, publisher, cover_state)
     super(date)
     @publisher = publisher.to_s
-    @cover_state = cover_state.to_s
+    @cover_state = cover_state.to_s.downcase
   end
 
   private
