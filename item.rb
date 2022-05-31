@@ -22,7 +22,7 @@ class Item
       author.add_item(self)
     )
     puts 'There is already an author. You can\'t change it' unless @author.nil?
-    puts 'Wrong parameter. This method only accept instances of Author class' unless author.is_a?(Author)
+    puts 'Wrong parameter. This method only accept instances of the Author class' unless author.is_a?(Author)
   end
 
   def add_label(label)
