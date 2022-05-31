@@ -1,4 +1,5 @@
-# item classs
+require_relative './label'
+
 class Item
   attr_reader :genre, :label, :author, :date
 
@@ -15,7 +16,16 @@ class Item
 
   def add_author; end
 
-  def add_label; end
+  def add_label(label)
+    label.is_a?(Label) && @label.nil? && (
+      @label = label
+      label.add_item(self)
+    )
+    puts 'There is already a label. You can\'t change it' unless @label.nil?
+    return if label.is_a?(Label)
+
+    puts 'You passed the wrong parameter. This method only accepts instances of the Label class'
+  end
 
   def move_to_archive
     @archived = true if can_be_archived?(@publish_date)
