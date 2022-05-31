@@ -19,7 +19,7 @@ class Item
     !author.is_a?(Author) && (
       puts 'Wrong paramater. This method only accepts instances of Author class'
       return
-    )  
+    )
     @author.nil? && (
       @author = author
       author.add_item(self)
