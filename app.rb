@@ -4,21 +4,31 @@ require_relative './label'
 require 'io/console'
 class App
   attr_reader :book_list, :label_list
+  attr_accessor :menu
 
   def initialize
+    @menu = 'main'
     @book_list = []
     @label_list = []
   end
 
-  def display_options
+  def display_main_options
     puts 'Welcome to your catalog manager!'
     puts ''
     puts 'Choose an option on the list:'
     puts '-----------------------------'
-    puts '1 - Books'
-    puts '2 - Music albums'
-    puts '3 - Games'
-    puts '4 - Save and exit'
+    puts ''
+    puts ['1 - Books', '2 - Music albums', '3 - Games', '4 - Save and exit'] 
+    puts ''
+  end
+
+  def display_book_options
+    puts 'Books catalog'
+    puts ''
+    puts 'Choose an option on the list:'
+    puts '-----------------------------'
+    puts ''
+    puts ['1 - Create a book', '2 - List all books', '3 - Go to main menu', '4 - Save and exit'] 
     puts ''
   end
 
@@ -34,10 +44,6 @@ class App
   end
 
   def display_books
-    @book_list.each { |_book| puts %(Publisher: "#{book.publisher}") }
-  end
-
-  def run
-    display_options
+    @book_list.each { |book| puts %(Publisher: "#{book.publisher}") }
   end
 end
