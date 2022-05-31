@@ -11,9 +11,9 @@ class Label
   end
 
   def add_item(item)
-    if(item.kind_of?(Item) && !@items.include?(item)) do
+    item.is_a?(Item) && !@items.include?(item) && (
       @items.push(item)
       item.add_label(self)
-    end
+    )
   end
 end
