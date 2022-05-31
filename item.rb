@@ -1,3 +1,4 @@
+require 'date'
 # item classs
 class Item
   attr_reader :genre, :label, :author, :date
@@ -24,6 +25,6 @@ class Item
   private
 
   def can_be_archived?(date)
-    (Date.today - Date.parse(date)).to_i > 10
+    (Date.today - Date.parse(date)).to_i > 365 * 10
   end
 end
