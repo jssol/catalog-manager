@@ -20,15 +20,78 @@ def main_menu(app)
   app.menu = 'main'
 end
 
-def add_author_to_game(app); end
-def display_authors; end
+def choose_game_to_set_author
+  puts 'Choose the game to set an author by number:'
+  puts '-----------------------------------'
+  puts ''
+end
+
+def choose_author_prompt
+  puts ''
+  puts 'Choose from the list or create a new author:'
+  puts '-------------------------------------------'
+  puts 'Type an number of the list to choose or "New" to create an author'
+  puts ''
+end
+
+def add_author_to_game(app)
+  if app.game_list.empty?
+    puts 'The are no available games to insert an author!!'
+    puts ''
+    return
+  end
+  choose_game_to_set_author
+  display_games(app)
+  print '--> '
+  game_index = gets.chomp.to_i - 1
+  game = app.game_list[game_index]
+  choose_author_prompt
+  display_authors(app)
+  print '--> '
+  author_decision = gets.chomp
+  create_new_author(app, game, author_decision)
+end
+
+def create_new_author(app,game, author_decision)
+  !game.author.nil? && (
+    puts "this item already have an author"
+    return
+  )
+  if author_decision.downcase == 'new'
+    print 'First name: '
+    first_name = gets.chomp
+    print 'Last name: '
+    last_name = gets.chomp
+    app.add_author(game, first_name, last_name)
+  elsif author_decision.to_i.is_a? Integer
+    author_index = author_decision.to_i - 1
+    author = app.author_list[app.menu.to_s.to_sym][author_index][:ref]
+    author
+    author.add_item(game) 
+  else
+   puts "Invaild input!."
+   create_new_author(app,game,author_decision)
+  end
+  puts "Author added!"
+end
+
+def display_authors(app)
+  if app.author_list[app.menu.to_s.to_sym].empty?
+    puts 'No authors available!'
+    puts ''
+    return
+  end
+  app.display_authors
+  puts ''
+end
+
 def add_game(app)
   print 'Publish date(YY-MM-DD): '
   date = gets.chomp
   print 'Muliplayer[Y/N]:'
   multiplayer_value = gets.chomp.downcase
   multiplayer = true if multiplayer_value == 'y'
-  multiplayer = false if multiplayer_value
+  multiplayer = false if multiplayer_value == 'n'
   print 'last played(YY-MM-DD): '
   last_played = gets.chomp
   app.add_game(date, multiplayer, last_played)
