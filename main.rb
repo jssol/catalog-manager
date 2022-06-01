@@ -6,12 +6,14 @@ end
 
 def display_music_console(app)
   app.menu = 'music'
-  puts 'music_console'
+  puts 'The music console is not yet implemented'
+  main_menu(app)
 end
 
 def display_game_console(app)
   app.menu = 'game'
-  puts 'game_console'
+  puts 'The game console is not yet implemented'
+  main_menu(app)
 end
 
 def add_book(app)
