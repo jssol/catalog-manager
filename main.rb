@@ -70,10 +70,8 @@ def create_new_label(app, book, label_decision)
     app.add_label(book, title, color)
   elsif label_decision.to_i.is_a? Integer
     label_index = label_decision.to_i - 1
-    label = app.label_list[:book][label_index]
-    label_title = label[:title]
-    label_color = label[:color]
-    app.add_label(book, label_title, label_color)
+    label = app.label_list[app.menu.to_s.to_sym][label_index][:ref]
+    label.add_item(book)
   else
     display_book_console(app)
   end
