@@ -28,24 +28,32 @@ def add_book(app)
   puts 'Book created successfully!'
 end
 
+def choose_book_to_label_prompt
+  puts 'Choose the book to label by number:'
+  puts '-----------------------------------'
+  puts ''
+end
+
+def choose_label_prompt
+  puts ''
+  puts 'Choose from the list or create a new label:'
+  puts '-------------------------------------------'
+  puts 'Type an Id to choose or "New" to create a label'
+  puts ''
+end
+
 def add_label_to_book(app)
   if app.book_list.empty?
     puts 'The are no available books to be labelled!'
     puts ''
     return
   end
-  puts 'Choose the book to label by number:'
-  puts '-----------------------------------'
-  puts ''
+  choose_book_to_label_prompt
   display_books(app)
   print '--> '
   book_index = gets.chomp.to_i - 1
   book = app.book_list[book_index]
-  puts ''
-  puts 'Choose from the list or create a new label:'
-  puts '-------------------------------------------'
-  puts 'Type an Id to choose or "New" to create a label'
-  puts ''
+  choose_label_prompt
   display_labels(app)
   print '--> '
   label_decision = gets.chomp
