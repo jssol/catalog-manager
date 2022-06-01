@@ -11,7 +11,7 @@ class Genre
 
   def add_item(item)
     item.is_a?(Item) && !@items.include?(item) && (
-        @item.push(item)
+        @items.push(item)
         item.add_genre(self)
       )
   end
