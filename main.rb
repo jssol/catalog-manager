@@ -37,17 +37,39 @@ def add_label_to_book(app)
   puts 'Choose the book to label by number:'
   puts '-----------------------------------'
   puts ''
-  app.display_books
-  puts ''
+  display_books(app)
   print '--> '
   book_index = gets.chomp.to_i - 1
   book = app.book_list[book_index]
   puts ''
-  print 'Enter the label title: '
-  title = gets.chomp
-  print 'Enter the label color: '
-  color = gets.chomp
-  app.add_label(book, title, color)
+  puts 'Choose from the list or create a new label:'
+  puts '-------------------------------------------'
+  puts 'Type an Id to choose or "New" to create a label'
+  puts ''
+  display_labels(app)
+  print '--> '
+  label_decision = gets.chomp
+  create_new_label(app, book, label_decision)
+end
+
+def create_new_label(app, book, label_decision)
+  puts ''
+  if label_decision.downcase == 'new'
+    print 'Enter the label title: '
+    title = gets.chomp
+    print 'Enter the label color: '
+    color = gets.chomp
+    app.add_label(book, title, color)
+  elsif label_decision.to_i.is_a? Integer
+    label_index = label_decision.to_i - 1
+    label = app.label_list[:book][label_index]
+    label_title = label[:title]
+    label_color = label[:color]
+    app.add_label(book, label_title, label_color)
+  else
+    display_book_console(app)
+  end
+  puts ''
 end
 
 def display_books(app)
