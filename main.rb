@@ -5,8 +5,8 @@ def display_book_console(app)
 end
 
 def display_music_console(app)
-  app.menu = 'music'
-  puts 'The music console is not yet implemented'
+  app.menu = 'musicalbum'
+  puts 'The musicalbum console is not yet implemented'
   main_menu(app)
 end
 
@@ -61,7 +61,7 @@ def display_books(app)
 end
 
 def display_labels(app)
-  if app.label_list.empty?
+  if app.label_list[app.menu.to_s.to_sym].empty?
     puts 'No labels available!'
     puts ''
     return

@@ -13,23 +13,23 @@ class App
     # because we have to differentiate them by the item type.
     # Important: You should customize the implementation according to the class you are working on.
     @label_list = {
-      books: [
-        {
-          title: 'title',
-          color: 'color'
-        }
+      book: [
+        # {
+        #   title: 'title',
+        #   color: 'color'
+        # }
       ],
-      music: [
-        {
-          title: 'title',
-          color: 'color'
-        }
+      musicalbum: [
+        # {
+        #   title: 'title',
+        #   color: 'color'
+        # }
       ],
-      games: [
-        {
-          title: 'title',
-          color: 'color'
-        }
+      game: [
+        # {
+        #   title: 'title',
+        #   color: 'color'
+        # }
       ]
     }
   end
@@ -64,7 +64,7 @@ class App
   def add_label(item, title, color)
     label = Label.new(title, color)
     label.add_item(item)
-    @label_list << label
+    @label_list[:book] << { title: label.title, color: label.color } if item.instance_of? Book
   end
 
   def display_books
@@ -74,10 +74,12 @@ class App
   end
 
   def display_labels
+    return if @menu == 'main'
+
     puts '       Title       |       Color       '
     puts '-----------------------------------'
-    @label_list.each do |label|
-      puts "       #{label.title}       |       #{label.color}       "
+    @label_list[@menu.to_s.to_sym].each do |label|
+      puts "       #{label[:title]}       |       #{label[:color]}       "
       puts '-----------------------------------'
     end
   end
