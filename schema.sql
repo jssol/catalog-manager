@@ -2,15 +2,11 @@
 CREATE TABLE IF NOT EXISTS label (
 	id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 	title TEXT,
-	color TEXT,
-	items JSON []
+	color TEXT
 );
 
 /* Create Book class table */
-CREATE TABLE
-mydb=# DROP TABLE book;
-DROP TABLE
-mydb=# CREATE TABLE IF NOT EXISTS book (
+CREATE TABLE IF NOT EXISTS book (
   id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   genre JSON,
   author JSON,
@@ -23,4 +19,3 @@ mydb=# CREATE TABLE IF NOT EXISTS book (
   label_id INT NOT NULL,
   FOREIGN KEY (label_id) REFERENCES label (id)
 );
-
