@@ -73,7 +73,9 @@ def create_new_label(app, book, label_decision)
     label = app.label_list[app.menu.to_s.to_sym][label_index][:ref]
     label.add_item(book)
   else
-    display_book_console(app)
+    puts ''
+    puts 'Invalid input! Try again!'
+    create_new_label(app, book, label_decision)
   end
   puts ''
 end
