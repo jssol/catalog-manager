@@ -64,7 +64,7 @@ class App
   def add_label(item, title, color)
     label = Label.new(title, color)
     label.add_item(item)
-    @label_list[:book] << { title: label.title, color: label.color } if item.instance_of? Book
+    @label_list[@menu.to_s.to_sym] << { ref: label, title: label.title, color: label.color } if item.instance_of? Book
   end
 
   def display_books
