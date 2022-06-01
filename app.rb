@@ -9,28 +9,10 @@ class App
   def initialize
     @menu = 'main'
     @book_list = []
-    # This file structure below represents the template for the label, the author and the genre classes
-    # because we have to differentiate them by the item type.
-    # Important: You should customize the implementation according to the class you are working on.
     @label_list = {
-      book: [
-        # {
-        #   title: 'title',
-        #   color: 'color'
-        # }
-      ],
-      musicalbum: [
-        # {
-        #   title: 'title',
-        #   color: 'color'
-        # }
-      ],
-      game: [
-        # {
-        #   title: 'title',
-        #   color: 'color'
-        # }
-      ]
+      book: [],
+      musicalbum: [],
+      game: []
     }
   end
 
@@ -64,7 +46,7 @@ class App
   def add_label(item, title, color)
     label = Label.new(title, color)
     label.add_item(item)
-    @label_list[@menu.to_s.to_sym] << { ref: label, title: label.title, color: label.color } if item.instance_of? Book
+    @label_list[@menu.to_s.to_sym] << { ref: label, title: label.title, color: label.color }
   end
 
   def display_books
