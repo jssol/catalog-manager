@@ -1,14 +1,22 @@
+require_relative './book'
+require_relative './label'
 require_relative './game'
 require_relative './author'
-# app class
+
 class App
-  attr_reader :game_list, :author_list
+  attr_reader :book_list, :label_list, :game_list, :author_list
   attr_accessor :menu
 
   def initialize
     @menu = 'main'
+    @book_list = []
     @game_list = []
     @author_list = {
+      book: [],
+      musicalbum: [],
+      game: []
+    }
+    @label_list = {
       book: [],
       musicalbum: [],
       game: []
@@ -33,6 +41,18 @@ class App
     puts ''
     puts ['1 - Add a game', '2 - Add a author', '3 - List games', '4 - List authors', '5 - Go to main menu',
           '6 - Save and exit']
+    puts ''
+  end
+
+  def display_book_options
+    puts 'Books catalog'
+    puts ''
+    puts 'Choose an option on the list:'
+    puts '-----------------------------'
+    puts ''
+    puts ['1 - Add a book', '2 - Add a label', '3 - List books', '4 - List labels', '5 - Go to main menu',
+          '6 - Save and exit']
+
     puts ''
   end
 
@@ -65,6 +85,34 @@ class App
       multiplayer = 'no' unless multiplayer_value
       print "\n#{i + 1} - Publish date: #{game.publish_date}, Multiplayer: #{multiplayer.capitalize}, "
       print "Last played: #{game.last_played_at}"
+    end
+  end
+
+  def add_book(date, publisher, cover_state)
+    book = Book.new(date, publisher, cover_state)
+    @book_list << book
+  end
+
+  def add_label(item, title, color)
+    label = Label.new(title, color)
+    label.add_item(item)
+    @label_list[@menu.to_s.to_sym] << { ref: label, title: label.title, color: label.color }
+  end
+
+  def display_books
+    @book_list.each_with_index do |book, index|
+      puts "#{index + 1} - Publisher: #{book.publisher}"
+    end
+  end
+
+  def display_labels
+    return if @menu == 'main'
+
+    puts ' Id |       Title       |       Color       '
+    puts '---------------------------------------'
+    @label_list[@menu.to_s.to_sym].each_with_index do |label, index|
+      puts "  #{index + 1} |       #{label[:title]}       |     #{label[:color]}         "
+      puts '---------------------------------------'
     end
   end
 end
