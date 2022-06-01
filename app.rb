@@ -76,11 +76,11 @@ class App
   def display_labels
     return if @menu == 'main'
 
-    puts '       Title       |       Color       '
-    puts '-----------------------------------'
-    @label_list[@menu.to_s.to_sym].each do |label|
-      puts "       #{label[:title]}       |       #{label[:color]}       "
-      puts '-----------------------------------'
+    puts ' Id |       Title       |       Color       '
+    puts '---------------------------------------'
+    @label_list[@menu.to_s.to_sym].each_with_index do |label, index|
+      puts " #{index + 1} |       #{label[:title]}       |     #{label[:color]}         "
+      puts '---------------------------------------'
     end
   end
 end
