@@ -79,7 +79,7 @@ class App
     puts ' Id |       Title       |       Color       '
     puts '---------------------------------------'
     @label_list[@menu.to_s.to_sym].each_with_index do |label, index|
-      puts " #{index + 1} |       #{label[:title]}       |     #{label[:color]}         "
+      puts "  #{index + 1} |       #{label[:title]}       |     #{label[:color]}         "
       puts '---------------------------------------'
     end
   end
