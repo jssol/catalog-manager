@@ -8,10 +8,6 @@ CREATE TABLE IF NOT EXISTS label (
 /* Create Book class table */
 CREATE TABLE IF NOT EXISTS book (
   id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  genre JSON,
-  author JSON,
-  source JSON,
-  label JSON,
   publish_date DATE,
   archived bool,
   publisher TEXT,
