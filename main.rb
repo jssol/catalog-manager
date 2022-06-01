@@ -52,9 +52,9 @@ def add_author_to_game(app)
   create_new_author(app, game, author_decision)
 end
 
-def create_new_author(app,game, author_decision)
+def create_new_author(app, game, author_decision)
   !game.author.nil? && (
-    puts "this item already have an author"
+    puts 'this item already have an author'
     return
   )
   if author_decision.downcase == 'new'
@@ -66,13 +66,12 @@ def create_new_author(app,game, author_decision)
   elsif author_decision.to_i.is_a? Integer
     author_index = author_decision.to_i - 1
     author = app.author_list[app.menu.to_s.to_sym][author_index][:ref]
-    author
-    author.add_item(game) 
+    author.add_item(game)
   else
-   puts "Invaild input!."
-   create_new_author(app,game,author_decision)
+    puts 'Invaild input!.'
+    create_new_author(app, game, author_decision)
   end
-  puts "Author added!"
+  puts 'Author added!'
 end
 
 def display_authors(app)

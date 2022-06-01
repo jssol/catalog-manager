@@ -39,32 +39,32 @@ class App
   def add_author(item, first_name, last_name)
     author = Author.new(first_name, last_name)
     author.add_item(item)
-    @author_list[@menu.to_s.to_sym] << { ref: author, first_name: author.first_name, last_name: author.last_name } 
+    @author_list[@menu.to_s.to_sym] << { ref: author, first_name: author.first_name, last_name: author.last_name }
   end
+
   def display_authors
     return if @menu == 'main'
 
     puts '       first name       |       last name       '
     puts '--------------------------------------------'
-    @author_list[@menu.to_s.to_sym].each_with_index do |author,i|
+    @author_list[@menu.to_s.to_sym].each_with_index do |author, i|
       puts "  #{i + 1} |       #{author[:first_name]}       |       #{author[:last_name]}       "
       puts '------------------------------------------'
     end
   end
 
   def add_game(date, multiplayer, last_played)
-    game = Game.new(date,multiplayer,last_played)
+    game = Game.new(date, multiplayer, last_played)
     @game_list << game
   end
 
   def display_games
-    @game_list.each_with_index do |game,i|
+    @game_list.each_with_index do |game, i|
       multiplayer_value = game.multiplayer
       multiplayer = 'yes' if multiplayer_value
       multiplayer = 'no' unless multiplayer_value
-      print "\n#{i+1} - Publish date: #{game.publish_date}, Multiplayer: #{multiplayer.capitalize}, "
+      print "\n#{i + 1} - Publish date: #{game.publish_date}, Multiplayer: #{multiplayer.capitalize}, "
       print "Last played: #{game.last_played_at}"
-    end  
+    end
   end
-
 end
