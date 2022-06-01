@@ -9,7 +9,29 @@ class App
   def initialize
     @menu = 'main'
     @book_list = []
-    @label_list = []
+    # This file structure below represents the template for the label, the author and the genre classes
+    # because we have to differentiate them by the item type.
+    # Important: You should customize the implementation according to the class you are working on.
+    @label_list = {
+      books: [
+        {
+          title: 'title',
+          color: 'color'
+        }
+      ],
+      music: [
+        {
+          title: 'title',
+          color: 'color'
+        }
+      ],
+      games: [
+        {
+          title: 'title',
+          color: 'color'
+        }
+      ]
+    }
   end
 
   def display_main_options
