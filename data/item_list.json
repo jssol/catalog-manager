@@ -1,0 +1,23 @@
+{
+  "book": [
+    {
+      "ref": "#<Book:0x00007f6ecbbac9d0>",
+      "publisher": "afdsa",
+      "cover_state": "adfadf"
+    }
+  ],
+  "musicalbum": [
+    {
+      "ref": "#<MusicAlbum:0x00007f6ecbc60b60>",
+      "publish_date": "2022-02-15",
+      "on_spotify": true
+    }
+  ],
+  "game": [
+    {
+      "ref": "#<Game:0x00007f6ecbbfd8a8>",
+      "multiplayer": true,
+      "last_played": ""
+    }
+  ]
+}

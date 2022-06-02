@@ -1,0 +1,20 @@
+{
+  "book": [
+    {
+      "ref": "#<Genre:0x00007f6ecbbf4780>",
+      "title": "adf"
+    }
+  ],
+  "musicalbum": [
+    {
+      "ref": "#<Genre:0x00007f6ecbbaf838>",
+      "title": "daf"
+    }
+  ],
+  "game": [
+    {
+      "ref": "#<Genre:0x00007f6ecbc0d190>",
+      "title": "fadsf"
+    }
+  ]
+}
