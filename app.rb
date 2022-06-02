@@ -1,56 +1,35 @@
-require_relative './book'
-require_relative './author'
-require_relative './music_album'
-require_relative './genre'
-require_relative './label'
-require_relative './game'
-require_relative './utils'
 require_relative './display'
+require_relative './craete_classes'
 
 class App
-  attr_reader :item_list, :label_list, :genre_list, :author_list
-  attr_accessor :menu
+  attr_reader :create_classes
 
   def initialize
-    @menu = 'main'
-    @item_list = { book: [], musicalbum: [], game: [] }
-    @label_list = { book: [], musicalbum: [], game: [] }
-    @genre_list = { book: [], musicalbum: [], game: [] }
-    @author_list = { book: [], musicalbum: [], game: [] }
+    @create_classes = CreateClasses.new
   end
 
-
   def add_book(date, publisher, cover_state)
-    book = Book.new(date, publisher, cover_state)
-    @item_list[:book] << book
+    @create_classes.add_book(date, publisher, cover_state)
   end
 
   def add_music(name, publish_date, on_spotify)
-    music = MusicAlbum.new(name, publish_date, on_spotify)
-    @item_list[:musicalbum] << music
+    @create_classes.add_music(name, publish_date, on_spotify)
   end
 
   def add_game(date, multiplayer, last_played)
-    game = Game.new(date, multiplayer, last_played)
-    @@item_list[:game] << game
+    @create_classes.add_game(date, multiplayer, last_played)
   end
 
   def add_label(item, title, color)
-    label = Label.new(title, color)
-    label.add_item(item)
-    @label_list[@menu.to_s.to_sym] << { ref: label, title: label.title, color: label.color }
+    create_classes.add_label(item, title, color)
   end
 
   def add_genre(item, name)
-    genre = Genre.new(name)
-    genre.add_item(item)
-    @genre_list[@menu.to_s.to_sym] << { ref: genre, title: genre.name }
+    create_classes.add_genre(item, name)
   end
 
   def add_author(item, first_name, last_name)
-    author = Author.new(first_name, last_name)
-    author.add_item(item)
-    @author_list[@menu.to_s.to_sym] << { ref: author, first_name: author.first_name, last_name: author.last_name }
+    create_classes.add_author(item, first_name, last_name)
   end
 
   def display_main_options
@@ -68,7 +47,7 @@ class App
   def display_game_options
     Display.new.display_game_options
   end
-  
+
   def display_books
      Display.new.display_books(@item_list[:book])
     end
