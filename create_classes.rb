@@ -6,13 +6,14 @@ require_relative './label'
 require_relative './game'
 require_relative './file_manager'
 
+$file_manager = FileManager.new
+
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
   attr_accessor :menu
 
   def initialize
     @menu = 'main'
-    @file_manager = FileManager.new
     @item_list = { book: [], musicalbum: [], game: [] }
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
@@ -26,7 +27,7 @@ class CreateClasses
       # instance_variable_get(var).each do |obj|
       #   file.push({ ref: obj, value: to_hash(obj) })
       # end
-      @file_manager.save_file("./data/#{file_name}.json", file) if var.size.positive?
+      $file_manager.save_file("./data/#{file_name}.json", file) if var.size.positive?
     end
   end
 
