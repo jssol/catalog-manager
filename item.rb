@@ -1,8 +1,10 @@
 require 'date'
+require_relative './label'
 require_relative './author'
-# item classs
+require_relative './genre'
+
 class Item
-  attr_reader :id, :archived, :genre, :label, :author, :publish_date
+  attr_reader :label, :author, :publish_date, :genre
 
   def initialize(date)
     @id = Random.rand(1..1000)
@@ -13,7 +15,12 @@ class Item
     @archived = false
   end
 
-  def add_genre; end
+  def add_genre(genre)
+    genre.is_a?(Genre) && @genre.nil? && (
+    @genre = genre
+    genre.add_item(self)
+  )
+  end
 
   def add_author(author)
     !author.is_a?(Author) && (
@@ -26,7 +33,12 @@ class Item
     )
   end
 
-  def add_label; end
+  def add_label(label)
+    label.is_a?(Label) && @label.nil? && (
+      @label = label
+      label.add_item(self)
+    )
+  end
 
   def move_to_archive
     @archived = true if can_be_archived?
