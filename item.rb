@@ -1,9 +1,10 @@
 require 'date'
 require_relative './label'
 require_relative './author'
+require_relative './genre'
 
 class Item
-  attr_reader :label, :author, :date
+  attr_reader :label, :author, :publish_date, :genre
 
   def initialize(date)
     @id = Random.rand(1..1000)
@@ -14,7 +15,7 @@ class Item
     @archived = false
   end
 
-  def add_genre=(genre)
+  def add_genre(genre)
     genre.is_a?(Genre) && @genre.nil? && (
     @genre = genre
     genre.add_item(self)
@@ -26,8 +27,6 @@ class Item
       @author = author
       author.add_item(self)
     )
-    puts 'There is already an author. You can\'t change it' unless @author.nil?
-    puts 'Wrong parameter. This method only accept instances of the Author class' unless author.is_a?(Author)
   end
 
   def add_label(label)
@@ -35,10 +34,6 @@ class Item
       @label = label
       label.add_item(self)
     )
-
-    return if label.is_a?(Label)
-
-    puts 'Wrong parameter. This method only accepts instances of the Label class'
   end
 
   def move_to_archive
