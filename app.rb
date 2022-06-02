@@ -7,29 +7,15 @@ require_relative './game'
 require_relative './utils'
 
 class App
-  attr_reader :book_list, :label_list, :game_list, :author_list, :music_list, :genre_list
+  attr_reader :item_list, :label_list, :genre_list, :author_list
   attr_accessor :menu
 
   def initialize
     @menu = 'main'
-    @book_list = []
-    @music_list = []
-    @game_list = []
-    @label_list = {
-      book: [],
-      musicalbum: [],
-      game: []
-    }
-    @genre_list = {
-      book: [],
-      musicalbum: [],
-      game: []
-    }
-    @author_list = {
-      book: [],
-      musicalbum: [],
-      game: []
-    }
+    @item_list = { book: [], musicalbum: [], game: [] }
+    @label_list = { book: [], musicalbum: [], game: [] }
+    @genre_list = { book: [], musicalbum: [], game: [] }
+    @author_list = { book: [], musicalbum: [], game: [] }
   end
 
   def display_main_options
@@ -49,8 +35,9 @@ class App
     puts 'Choose an option on the list:'
     puts '-----------------------------'
     puts ''
-    puts ['1 - Add a book', '2 - Add a label', '3 - List books', '4 - List labels', '5 - Go to main menu',
-          '6 - Save and exit']
+    puts ['1 - Add a book', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
+          '5 - List books', '6 - List labels', '7 - List genres', '8 - List authors',
+          '9 - Go to main menu', '10 - Save and exit']
 
     puts ''
   end
@@ -61,8 +48,9 @@ class App
     puts 'Choose an option on the list:'
     puts '-----------------------------'
     puts ''
-    puts ['1 - Add a Music', '2 - Add a Genre', '3 - List Musics', '4 - List Genres', '5 - Go to main menu',
-          '6 - Save and exit']
+    puts ['1 - Add a music album', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
+          '5 - List music albums', '6 - List labels', '7 - List genres', '8 - List authors',
+          '9 - Go to main menu', '10 - Save and exit']
     puts ''
   end
 
@@ -72,24 +60,25 @@ class App
     puts 'Choose an option on the list:'
     puts '-----------------------------'
     puts ''
-    puts ['1 - Add a game', '2 - Add a author', '3 - List games', '4 - List authors', '5 - Go to main menu',
-          '6 - Save and exit']
+    puts ['1 - Add a game', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
+          '5 - List games', '6 - List labels', '7 - List genres', '8 - List authors',
+          '9 - Go to main menu', '10 - Save and exit']
     puts ''
   end
 
   def add_book(date, publisher, cover_state)
     book = Book.new(date, publisher, cover_state)
-    @book_list << book
+    @item_list[:book] << book
   end
 
   def add_music(name, publish_date, on_spotify)
     music = MusicAlbum.new(name, publish_date, on_spotify)
-    @music_list << music
+    @item_list[:musicalbum] << music
   end
 
   def add_game(date, multiplayer, last_played)
     game = Game.new(date, multiplayer, last_played)
-    @game_list << game
+    @@item_list[:game] << game
   end
 
   def add_label(item, title, color)
@@ -111,13 +100,13 @@ class App
   end
 
   def display_books
-    @book_list.each_with_index do |book, index|
+    @item_list[:book].each_with_index do |book, index|
       puts "#{index + 1} - Publisher: #{book.publisher}, Cover state: #{book.cover_state}"
     end
   end
 
   def display_musics
-    @music_list.each_with_index do |music, index|
+    @item_list[:musicalbum].each_with_index do |music, index|
       puts "#{index + 1}) music album details:"
       puts "Music Album: #{music.name}"
       puts "On spotify: #{music.on_spotify}"
@@ -126,7 +115,7 @@ class App
   end
 
   def display_games
-    @game_list.each_with_index do |game, i|
+    @item_list[:game].each_with_index do |game, i|
       multiplayer_value = game.multiplayer
       multiplayer = 'yes' if multiplayer_value
       multiplayer = 'no' unless multiplayer_value
