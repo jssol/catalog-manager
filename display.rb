@@ -113,13 +113,13 @@ class Display
   end
 
   def choose_item_to_genre_prompt
-    puts 'Choose the item to Genre by number:'
-    print "-----------------------------------\n\n"
+    puts 'Choose the item to add a genre by number:'
+    print "------------------------------------------\n\n"
   end
 
   def choose_genre_prompt
-    print "\nChoose from the list or create a new Genre:\n"
-    puts '-------------------------------------------'
+    print "\nChoose from the list or create a genre:\n"
+    puts '---------------------------------------'
     print "Type an Id to choose or \"New\" to create a Genre\n\n"
   end
 
@@ -140,7 +140,7 @@ class Display
 
   def choose_item_to_set_author
     puts 'Choose the item to set an author by number:'
-    puts '-----------------------------------'
+    puts '-------------------------------------------'
     puts ''
   end
 

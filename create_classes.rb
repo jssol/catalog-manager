@@ -62,7 +62,7 @@ class CreateClasses
 
   def create_new_label(item, label_decision)
     puts ''
-    if label_decision.downcase == 'new'
+    if label_decision.downcase.strip == 'new'
       print 'Enter the label title: '
       title = gets.chomp
       print 'Enter the label color: '
@@ -77,7 +77,7 @@ class CreateClasses
       puts 'Invalid input! Try again!'
       create_new_label(app, item, label_decision)
     end
-    puts ''
+    puts 'The label has been added successfully!'
   end
 
   def add_genre(item, name)
@@ -88,8 +88,8 @@ class CreateClasses
 
   def create_new_genre(item, genre_decision)
     puts ''
-    if genre_decision.downcase == 'new'
-      print 'Enter the Genre type: '
+    if genre_decision.downcase.strip == 'new'
+      print 'Enter the genre: '
       title = gets.chomp
       add_genre(item, title)
     elsif genre_decision.to_i.is_a? Integer
@@ -97,10 +97,11 @@ class CreateClasses
       genre = @genre_list[@menu.to_s.to_sym][genre_index][:ref]
       genre.add_item(item)
     else
-      puts 'invalid input!'
+      puts ''
+      puts 'Invalid input! Try again!'
       create_new_genre(item, genre_decision)
     end
-    puts ''
+    puts 'The genre has been added successfully!'
   end
 
   def add_author(item, first_name, last_name)
@@ -114,8 +115,8 @@ class CreateClasses
       puts 'This item already has an author'
       return
     )
-    if author_decision.downcase == 'new'
-      print 'First name: '
+    if author_decision.downcase.strip == 'new'
+      print "\n\nFirst name: "
       first_name = gets.chomp
       print 'Last name: '
       last_name = gets.chomp
@@ -125,9 +126,10 @@ class CreateClasses
       author = @author_list[@menu.to_s.to_sym][author_index][:ref]
       author.add_item(item)
     else
-      puts 'Invaild input!.'
+      puts ''
+      puts 'Invalid input! Try again!'
       create_new_author(item, author_decision)
     end
-    puts 'Author added!'
+    puts puts 'The author has been added successfully!'
   end
 end
