@@ -1,31 +1,26 @@
-
 class ChooseMenu
-  def initialize
-  	@decision = nil
-  end
+  attr_reader :decision
 
+  def initialize
+    @decision = nil
+  end
 
   def menu_type
-   case @decision
-    when 1
-      book_menu_actions(app, decision)
-    when 2
-      music_menu_actions(app, decision)
-    when 3
-      game_menu_actions(app, decision)
-    when 4 
-      puts 'Consider adding items to your catalog!'
-      exit_app
-    else
-      puts 'invalid input!'
-      menu_type
+    menu = 'book' if @decision == 1
+    menu = 'musicalbum' if @decision == 2
+    menu = 'game' if @decision == 3
+    menu
   end
-end
+
+  def exit_app
+    puts 'Thank you for using this app!'
+    exit
+  end
 
   def take_action
-   print '--> '
-   @decision = gets.chomp.to_i
-   puts ''
-   menu_type
+    print '--> '
+    @decision = gets.chomp.to_i
+    puts ''
+    menu_type
   end
-end	
+end

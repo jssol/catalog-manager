@@ -49,5 +49,4 @@ class CreateClasses
     author.add_item(item)
     @author_list[@menu.to_s.to_sym] << { ref: author, first_name: author.first_name, last_name: author.last_name }
   end
-
-end	
+end

@@ -1,6 +1,4 @@
-
-class display
-
+class Display
   def display_main_options
     puts ''
     puts 'Welcome to your catalog manager!'
@@ -50,48 +48,49 @@ class display
   end
 
   def display_books(book_list)
-   if app.item_list[:book].empty?
-     puts 'No books available!'
-     puts ''
-     return
-   end
-   book_list.each_with_index do |book, index|
+    if book_list.empty?
+      puts 'No books available!'
+      puts ''
+      return
+    end
+    book_list.each_with_index do |book, index|
       puts "#{index + 1} - Publisher: #{book.publisher}, Cover state: #{book.cover_state}"
-   puts ''
+      puts ''
+    end
   end
 
   def display_musics(music_list)
-   if app.item_list[:musicalbum].empty?
-     puts 'No Music Albums available!'
-     puts ''
-     return
-   end
-   music_list.each_with_index do |music, index|
+    if music_list.empty?
+      puts 'No Music Albums available!'
+      puts ''
+      return
+    end
+    music_list.each_with_index do |music, index|
       puts "#{index + 1}) music album details:"
       puts "Music Album: #{music.name}"
       puts "On spotify: #{music.on_spotify}"
     end
-   puts ''
+    puts ''
   end
 
   def display_games(game_list)
-	if app.item_list[:game].empty?
-	  puts 'No games available!'
-	  puts ''
-	  return
-	end
-	game_list.each_with_index do |game, i|
+    if game_list.empty?
+      puts 'No games available!'
+      puts ''
+      return
+    end
+    game_list.each_with_index do |game, i|
       multiplayer_value = game.multiplayer
       multiplayer = 'yes' if multiplayer_value
       multiplayer = 'no' unless multiplayer_value
       print "\n#{i + 1} - Publish date: #{game.publish_date}, Multiplayer: #{multiplayer.capitalize}, "
       print "Last played: #{game.last_played_at}"
     end
-	puts ''
+    puts ''
   end
 
   def display_labels(label_list)
-    if app.label_list[app.menu.to_s.to_sym].empty?
+    if label_list.empty?
       puts 'No labels available!'
       puts ''
       return
@@ -106,7 +105,7 @@ class display
   end
 
   def display_genres(genre_list)
-    if app.genre_list[app.menu.to_s.to_sym].empty?
+    if genre_list.empty?
       puts 'No genres available!'
       puts ''
       return
@@ -121,7 +120,7 @@ class display
   end
 
   def display_authors(author_list)
-    if app.author_list[app.menu.to_s.to_sym].empty?
+    if author_list.empty?
       puts 'No authors available!'
       puts ''
       return
@@ -134,4 +133,4 @@ class display
     end
     puts ''
   end
-end	
+end

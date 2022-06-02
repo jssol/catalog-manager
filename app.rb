@@ -1,5 +1,6 @@
 require_relative './display'
 require_relative './user_interaction'
+require_relative './choose_menu'
 
 class App
   attr_reader :create_classes
@@ -7,43 +8,88 @@ class App
   def initialize
     @user_interaction = UserInteraction.new
     @create_classes = @user_interaction.create_classes
-    @menu = @create_classes.menu
   end
 
-  def main_menu_actions(decision)
+  def main_menu_actions
+    decision = take_action
     puts 'Please choose one of the options on the list' unless (1..4).include?(decision)
     decision == 4 && exit_app
-    methods = [
-      method(:display_book_console), method(:display_music_console), method(:display_game_console)
-    ]
-    (1..3).include?(decision) && methods[decision - 1].call(app)
-  end
-  def menu_type(decision)
-    @menu = 'book' if decision == 1
-    @menu = 'musicalbum' if decision == 2 
-    @menu = 'game' if decision == 3
-    exit_app if decision == 4
-  end  
-  def take_action
-    print '--> '
-    decision = gets.chomp.to_i
-    puts ''
-    menu_type(decision)
+    @create_classes.menu = 'book' if decision == 1
+    @create_classes.menu = 'musicalbum' if decision == 2
+    @create_classes.menu = 'game' if decision == 3
   end
 
+  def book_menu_actions
+    decision = take_action
+    puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
+    decision == 10 && exit_app
+    methods = [
+      method(:add_book), method(:add_label), method(:add_genre), method(:add_author),
+      method(:display_books), method(:display_labels), method(:display_genres), method(:display_authors),
+      method(:main_menu)
+    ]
+    (1..9).include?(decision) && methods[decision - 1].call
+  end
+
+  def music_menu_actions
+    decision = take_action
+    puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
+    decision == 10 && exit_app
+    methods = [
+      method(:add_music), method(:add_label), method(:add_genre), method(:add_author),
+      method(:display_musics), method(:display_labels), method(:display_genres), method(:display_authors),
+      method(:main_menu)
+    ]
+    (1..9).include?(decision) && methods[decision - 1].call
+  end
+
+  def game_menu_actions
+     decision = take_action
+    puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
+    decision == 10 && exit_app
+    methods = [
+      method(:add_game), method(:add_label), method(:add_genre), method(:add_author),
+      method(:display_games), method(:display_labels), method(:display_genres), method(:display_authors),
+      method(:main_menu)
+    ]
+    (1..9).include?(decision) && methods[decision - 1].call
+  end
+
+  def main_menu
+    @create_classes.menu = 'main'
+  end
+
+  def exit_app
+    puts 'Thank you for using this app!'
+    exit
+  end
+
+  def take_action
+   print '--> '
+   decision = gets.chomp.to_i
+   puts ''
+   decision
+  end  
+
   def run
-    take_action 
-    case @menu
+    case  @create_classes.menu
     when 'main'
       display_main_options
+      main_menu_actions
     when 'book'
       display_book_options
-    end  
+      book_menu_actions
     when 'musicalbum'
       display_music_options
+      music_menu_actions
     when 'game'
       display_game_options
+      game_menu_actions
+    else
+      puts 'invalid input'
+    end
   end
+
   def add_book(date, publisher, cover_state)
     @create_classes.add_book(date, publisher, cover_state)
   end
@@ -85,28 +131,26 @@ class App
   end
 
   def display_books
-     Display.new.display_books(@item_list[:book])
-    end
+    Display.new.display_books(@create_classes.item_list[:book])
   end
 
   def display_musics
-    Display.new.display_books(@item_list[:musicalbum])
+    Display.new.display_musics(@create_classes.item_list[:musicalbum])
   end
 
   def display_games
-    Display.new.display_books(@item_list[:game])
+    Display.new.display_games(@create_classes.item_list[:game])
   end
 
   def display_labels
-    Display.new.display_books(@label_list[@menu.to_s.to_sym])
+    Display.new.display_labels(@create_classes.label_list[@create_classes.menu.to_s.to_sym])
   end
 
   def display_genres
-     Display.new.display_books(@genre_list[@menu.to_s.to_sym])
+    Display.new.display_genres(@create_classes.genre_list[@create_classes.menu.to_s.to_sym])
   end
 
   def display_authors
-    Display.new.display_books(@author_list[@menu.to_s.to_sym])
+    Display.new.display_authors(@create_classes.author_list[@create_classes.menu.to_s.to_sym])
   end
-
 end
