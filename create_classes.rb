@@ -4,6 +4,7 @@ require_relative './music_album'
 require_relative './genre'
 require_relative './label'
 require_relative './game'
+require_relative './file_manager'
 
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
@@ -11,25 +12,46 @@ class CreateClasses
 
   def initialize
     @menu = 'main'
+    @file_manager = FileManager.new
     @item_list = { book: [], musicalbum: [], game: [] }
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
     @author_list = { book: [], musicalbum: [], game: [] }
   end
 
+  def save_files
+    instance_variables.each do |var|
+      file_name = var.to_s.delete('@')
+      file = instance_variable_get(var)
+      # instance_variable_get(var).each do |obj|
+      #   file.push({ ref: obj, value: to_hash(obj) })
+      # end
+      @file_manager.save_file("./data/#{file_name}.json", file) if var.size.positive?
+    end
+  end
+
+  # def recover_files
+  #   book_file = get_file('./data/book_list.json')
+  #   people_file = get_file('./data/people_list.json')
+  #   rental_file = get_file('./data/rental_list.json')
+  #   recover_books(book_file)
+  #   recover_people(people_file)
+  #   recover_rentals(rental_file, book_file, people_file)
+  # end
+
   def add_book(date, publisher, cover_state)
     book = Book.new(date, publisher, cover_state)
-    @item_list[:book] << book
+    @item_list[:book] << { ref: book, publisher: book.publisher, cover_state: book.cover_state }
   end
 
   def add_music(name, publish_date, on_spotify)
     music = MusicAlbum.new(name, publish_date, on_spotify)
-    @item_list[:musicalbum] << music
+    @item_list[:musicalbum] << { ref: music, publish_date: music.publish_date, on_spotify: music.on_spotify }
   end
 
   def add_game(date, multiplayer, last_played)
     game = Game.new(date, multiplayer, last_played)
-    @item_list[:game] << game
+    @item_list[:game] << { ref: game, multiplayer: game.multiplayer, last_played: game.last_played }
   end
 
   def add_label(item, title, color)
@@ -88,8 +110,8 @@ class CreateClasses
   end
 
   def create_new_author(item, author_decision)
-    !item.author.nil? && (
-      puts 'this item already have an author'
+    !item[:author].nil? && (
+      puts 'This item already has an author'
       return
     )
     if author_decision.downcase == 'new'

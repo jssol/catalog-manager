@@ -61,6 +61,7 @@ class App
 
   def exit_app
     puts 'Thank you for using this app!'
+    @create_classes.save_files
     exit
   end
 
