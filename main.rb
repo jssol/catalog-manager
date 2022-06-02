@@ -28,8 +28,8 @@ def add_music(app)
   puts ''
 end
 
-def choose_music_to_genre_prompt
-  puts 'Choose the Music to Genre by number:'
+def choose_item_to_genre_prompt
+  puts 'Choose the item to Genre by number:'
   puts '-----------------------------------'
   puts ''
 end
@@ -43,42 +43,44 @@ def choose_genre_prompt
 end
 
 def add_genre(app)
-  if app.music_list.empty?
-    puts 'The are no available Muscis to add Genre type!'
+  if app.item_list[:musicalbum].empty? && app.item_list[:game].empty? && app.item_list[:book].empty?
+    puts 'The are no available items to add Genre type!'
     puts ''
     return
   end
-  choose_music_to_genre_prompt
-  display_musics(app)
+  choose_item_to_genre_prompt
+  display_musics(app) if app.menu == 'musicalbum'
+  display_games(app) if app.menu == 'game'
+  display_books(app) if app.menu == 'book'
   print '--> '
-  music_index = gets.chomp.to_i - 1
-  music = app.music_list[music_index]
+  item_index = gets.chomp.to_i - 1
+  item = app.item_list[app.menu.to_s.to_sym][item_index]
   choose_genre_prompt
   display_genres(app)
   print '--> '
   genre_decision = gets.chomp
-  create_new_genre(app, music, genre_decision)
+  create_new_genre(app, item, genre_decision)
 end
 
-def create_new_genre(app, music, genre_decision)
+def create_new_genre(app, item, genre_decision)
   puts ''
   if genre_decision.downcase == 'new'
     print 'Enter the Genre type: '
     title = gets.chomp
-    app.add_genre(music, title)
+    app.add_genre(item, title)
   elsif genre_decision.to_i.is_a? Integer
     genre_index = genre_decision.to_i - 1
     genre = app.genre_list[app.menu.to_s.to_sym][genre_index][:ref]
-    genre.add_item(music)
+    genre.add_item(item)
   else
     puts 'invalid input!'
-    create_new_genre(app, music, genre_decision)
+    create_new_genre(app, item, genre_decision)
   end
   puts ''
 end
 
 def display_musics(app)
-  if app.music_list.empty?
+  if app.item_list[:musicalbum].empty?
     puts 'No Music Albums available!'
     puts ''
     return
@@ -89,7 +91,7 @@ end
 
 def display_genres(app)
   if app.genre_list[app.menu.to_s.to_sym].empty?
-    puts 'No labels available!'
+    puts 'No genres available!'
     puts ''
     return
   end
@@ -97,8 +99,8 @@ def display_genres(app)
   puts ''
 end
 
-def choose_game_to_set_author
-  puts 'Choose the game to set an author by number:'
+def choose_item_to_set_author
+  puts 'Choose the item to set an author by number:'
   puts '-----------------------------------'
   puts ''
 end
@@ -115,8 +117,8 @@ def add_book(app)
   puts 'Book created successfully!'
 end
 
-def choose_book_to_label_prompt
-  puts 'Choose the book to label by number:'
+def choose_item_to_label_prompt
+  puts 'Choose the item to label by number:'
   puts '-----------------------------------'
   puts ''
 end
@@ -130,25 +132,27 @@ def choose_author_prompt
 end
 
 def add_author(app)
-  if app.game_list.empty?
-    puts 'The are no available games to insert an author!!'
+  if app.item_list[:musicalbum].empty? && app.item_list[:game].empty? && app.item_list[:book].empty?
+    puts 'The are no available items to insert an author!!'
     puts ''
     return
   end
-  choose_game_to_set_author
-  display_games(app)
+  choose_item_to_set_author
+  display_musics(app) if app.menu == 'musicalbum'
+  display_games(app) if app.menu == 'game'
+  display_books(app) if app.menu == 'book'
   print '--> '
-  game_index = gets.chomp.to_i - 1
-  game = app.game_list[game_index]
+  item_index = gets.chomp.to_i - 1
+  item = app.item_list[app.menu.to_s.to_sym][item_index]
   choose_author_prompt
   display_authors(app)
   print '--> '
   author_decision = gets.chomp
-  create_new_author(app, game, author_decision)
+  create_new_author(app, item, author_decision)
 end
 
-def create_new_author(app, game, author_decision)
-  !game.author.nil? && (
+def create_new_author(app, item, author_decision)
+  !item.author.nil? && (
     puts 'this item already have an author'
     return
   )
@@ -157,14 +161,14 @@ def create_new_author(app, game, author_decision)
     first_name = gets.chomp
     print 'Last name: '
     last_name = gets.chomp
-    app.add_author(game, first_name, last_name)
+    app.add_author(item, first_name, last_name)
   elsif author_decision.to_i.is_a? Integer
     author_index = author_decision.to_i - 1
     author = app.author_list[app.menu.to_s.to_sym][author_index][:ref]
-    author.add_item(game)
+    author.add_item(item)
   else
     puts 'Invaild input!.'
-    create_new_author(app, game, author_decision)
+    create_new_author(app, item, author_decision)
   end
   puts 'Author added!'
 end
@@ -194,7 +198,7 @@ def add_game(app)
 end
 
 def display_games(app)
-  if app.game_list.empty?
+  if app.item_list[:game].empty?
     puts 'No games available!'
     puts ''
     return
@@ -212,45 +216,47 @@ def choose_label_prompt
 end
 
 def add_label(app)
-  if app.book_list.empty?
-    puts 'The are no available books to be labelled!'
+  if app.item_list[:musicalbum].empty? && app.item_list[:game].empty? && app.item_list[:book].empty?
+    puts 'The are no available items to be labelled!'
     puts ''
     return
   end
-  choose_book_to_label_prompt
-  display_books(app)
+  choose_item_to_label_prompt
+  display_musics(app) if app.menu == 'musicalbum'
+  display_games(app) if app.menu == 'game'
+  display_books(app) if app.menu == 'book'
   print '--> '
-  book_index = gets.chomp.to_i - 1
-  book = app.book_list[book_index]
+  item_index = gets.chomp.to_i - 1
+  item = app.item_list[app.menu.to_s.to_sym][item_index]
   choose_label_prompt
   display_labels(app)
   print '--> '
   label_decision = gets.chomp
-  create_new_label(app, book, label_decision)
+  create_new_label(app, item, label_decision)
 end
 
-def create_new_label(app, book, label_decision)
+def create_new_label(app, item, label_decision)
   puts ''
   if label_decision.downcase == 'new'
     print 'Enter the label title: '
     title = gets.chomp
     print 'Enter the label color: '
     color = gets.chomp
-    app.add_label(book, title, color)
+    app.add_label(item, title, color)
   elsif label_decision.to_i.is_a? Integer
     label_index = label_decision.to_i - 1
     label = app.label_list[app.menu.to_s.to_sym][label_index][:ref]
-    label.add_item(book)
+    label.add_item(item)
   else
     puts ''
     puts 'Invalid input! Try again!'
-    create_new_label(app, book, label_decision)
+    create_new_label(app, item, label_decision)
   end
   puts ''
 end
 
 def display_books(app)
-  if app.book_list.empty?
+  if app.item_list[:book].empty?
     puts 'No books available!'
     puts ''
     return
@@ -282,7 +288,7 @@ def book_menu_actions(app, decision)
   puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
   decision == 10 && exit_app
   methods = [
-    method(:add_book), method(:add_label), method(:add_genre), method(:add_author) 
+    method(:add_book), method(:add_label), method(:add_genre), method(:add_author), 
     method(:display_books), method(:display_labels), method(:display_genres), method(:display_authors),
     method(:main_menu)
   ]
@@ -293,7 +299,7 @@ def music_menu_actions(app, decision)
   puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
   decision == 10 && exit_app
   methods = [
-    method(:add_music), method(:add_label), method(:add_genre), method(:add_author) 
+    method(:add_music), method(:add_label), method(:add_genre), method(:add_author),
     method(:display_musics), method(:display_labels), method(:display_genres), method(:display_authors),
     method(:main_menu)
   ]
@@ -304,7 +310,7 @@ def game_menu_actions(app, decision)
   puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
   decision == 10 && exit_app
   methods = [
-    method(:add_game), method(:add_label), method(:add_genre), method(:add_author) 
+    method(:add_game), method(:add_label), method(:add_genre), method(:add_author),
     method(:display_games), method(:display_labels), method(:display_genres), method(:display_authors),
     method(:main_menu)
   ]  
