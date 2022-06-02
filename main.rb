@@ -288,7 +288,7 @@ def book_menu_actions(app, decision)
   puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
   decision == 10 && exit_app
   methods = [
-    method(:add_book), method(:add_label), method(:add_genre), method(:add_author), 
+    method(:add_book), method(:add_label), method(:add_genre), method(:add_author),
     method(:display_books), method(:display_labels), method(:display_genres), method(:display_authors),
     method(:main_menu)
   ]
@@ -313,7 +313,7 @@ def game_menu_actions(app, decision)
     method(:add_game), method(:add_label), method(:add_genre), method(:add_author),
     method(:display_games), method(:display_labels), method(:display_genres), method(:display_authors),
     method(:main_menu)
-  ]  
+  ]
   (1..9).include?(decision) && methods[decision - 1].call(app)
 end
 
