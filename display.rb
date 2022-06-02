@@ -15,7 +15,7 @@ class Display
   end
 
   def display_book_options
-    print "\n\nBooks catalog\n\n"
+    print "\nBooks catalog\n\n"
     puts 'Choose an option on the list:'
     print "-----------------------------\n\n"
     puts ['1 - Add a book', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
@@ -24,7 +24,7 @@ class Display
   end
 
   def display_music_options
-    print "\n\nMusic catalog\n\n"
+    print "\nMusic catalog\n\n"
     puts 'Choose an option on the list:'
     print "-----------------------------\n\n"
     puts ['1 - Add a music album', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
@@ -33,7 +33,7 @@ class Display
   end
 
   def display_game_options
-    print "\n\nGame catalog\n\n"
+    print "\nGame catalog\n\n"
     puts 'Choose an option on the list:'
     print "-----------------------------\n"
     puts ['1 - Add a game', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
