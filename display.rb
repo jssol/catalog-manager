@@ -1,50 +1,44 @@
 class Display
+  attr_reader :display_decision
+
+  def initialize
+    @display_decision = {
+      book: method(:display_books), musicalbum: method(:display_musics), game: method(:display_games)
+    }
+  end
+
   def display_main_options
-    puts ''
-    puts 'Welcome to your catalog manager!'
-    puts ''
+    print "\nWelcome to your catalog manager!\n\n"
     puts 'Choose an option on the list:'
-    puts '-----------------------------'
-    puts ''
-    puts ['1 - Books', '2 - Music albums', '3 - Games', '4 - Save and exit']
-    puts ''
+    print "-----------------------------\n\n"
+    puts ['1 - Books', '2 - Music albums', '3 - Games', '4 - Save and exit', '']
   end
 
   def display_book_options
-    puts 'Books catalog'
-    puts ''
+    print "\n\nBooks catalog\n\n"
     puts 'Choose an option on the list:'
-    puts '-----------------------------'
-    puts ''
+    print "-----------------------------\n\n"
     puts ['1 - Add a book', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
           '5 - List books', '6 - List labels', '7 - List genres', '8 - List authors',
-          '9 - Go to main menu', '10 - Save and exit']
-
-    puts ''
+          '9 - Go to main menu', '10 - Save and exit', '']
   end
 
   def display_music_options
-    puts 'Music catalog'
-    puts ''
+    print "\n\nMusic catalog\n\n"
     puts 'Choose an option on the list:'
-    puts '-----------------------------'
-    puts ''
+    print "-----------------------------\n\n"
     puts ['1 - Add a music album', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
           '5 - List music albums', '6 - List labels', '7 - List genres', '8 - List authors',
-          '9 - Go to main menu', '10 - Save and exit']
-    puts ''
+          '9 - Go to main menu', '10 - Save and exit', '']
   end
 
   def display_game_options
-    puts 'Game catalog'
-    puts ''
+    print "\n\nGame catalog\n\n"
     puts 'Choose an option on the list:'
-    puts '-----------------------------'
-    puts ''
+    print "-----------------------------\n"
     puts ['1 - Add a game', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
           '5 - List games', '6 - List labels', '7 - List genres', '8 - List authors',
-          '9 - Go to main menu', '10 - Save and exit']
-    puts ''
+          '9 - Go to main menu', '10 - Save and exit', '']
   end
 
   def display_books(book_list)
@@ -89,6 +83,20 @@ class Display
     puts ''
   end
 
+  def choose_item_to_label_prompt
+    puts 'Choose the item to label by number:'
+    puts '-----------------------------------'
+    puts ''
+  end
+
+  def choose_label_prompt
+    puts ''
+    puts 'Choose from the list or create a new label:'
+    puts '-------------------------------------------'
+    puts 'Type an Id to choose or "New" to create a label'
+    puts ''
+  end
+
   def display_labels(label_list)
     if label_list.empty?
       puts 'No labels available!'
@@ -104,6 +112,17 @@ class Display
     puts ''
   end
 
+  def choose_item_to_genre_prompt
+    puts 'Choose the item to Genre by number:'
+    print "-----------------------------------\n\n"
+  end
+
+  def choose_genre_prompt
+    print "\nChoose from the list or create a new Genre:\n"
+    puts '-------------------------------------------'
+    print "Type an Id to choose or \"New\" to create a Genre\n\n"
+  end
+
   def display_genres(genre_list)
     if genre_list.empty?
       puts 'No genres available!'
@@ -116,6 +135,20 @@ class Display
       puts "  #{index + 1} |       #{genre[:title]}   "
       puts '------------------------------------------'
     end
+    puts ''
+  end
+
+  def choose_item_to_set_author
+    puts 'Choose the item to set an author by number:'
+    puts '-----------------------------------'
+    puts ''
+  end
+
+  def choose_author_prompt
+    puts ''
+    puts 'Choose from the list or create a new author:'
+    puts '-------------------------------------------'
+    puts 'Type an number of the list to choose or "New" to create an author'
     puts ''
   end
 

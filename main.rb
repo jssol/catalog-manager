@@ -1,7 +1,6 @@
 require_relative './app'
 require_relative './utils'
 
-
 def add_music(app)
   print 'Music Album: '
   name = gets.chomp
@@ -63,8 +62,6 @@ def create_new_genre(app, item, genre_decision)
   end
   puts ''
 end
-
-
 
 def choose_item_to_set_author
   puts 'Choose the item to set an author by number:'
@@ -140,7 +137,6 @@ def create_new_author(app, item, author_decision)
   puts 'Author added!'
 end
 
-
 def add_game(app)
   print 'Publish date(YY-MM-DD): '
   date = gets.chomp
@@ -153,55 +149,6 @@ def add_game(app)
   app.add_game(date, multiplayer, last_played)
   puts ''
   puts 'game created successfully!'
-end
-
-
-def choose_label_prompt
-  puts ''
-  puts 'Choose from the list or create a new label:'
-  puts '-------------------------------------------'
-  puts 'Type an Id to choose or "New" to create a label'
-  puts ''
-end
-
-def add_label(app)
-  if app.item_list[:musicalbum].empty? && app.item_list[:game].empty? && app.item_list[:book].empty?
-    puts 'The are no available items to be labelled!'
-    puts ''
-    return
-  end
-  choose_item_to_label_prompt
-  display_musics(app) if app.menu == 'musicalbum'
-  display_games(app) if app.menu == 'game'
-  display_books(app) if app.menu == 'book'
-  print '--> '
-  item_index = gets.chomp.to_i - 1
-  item = app.item_list[app.menu.to_s.to_sym][item_index]
-  choose_label_prompt
-  display_labels(app)
-  print '--> '
-  label_decision = gets.chomp
-  create_new_label(app, item, label_decision)
-end
-
-def create_new_label(app, item, label_decision)
-  puts ''
-  if label_decision.downcase == 'new'
-    print 'Enter the label title: '
-    title = gets.chomp
-    print 'Enter the label color: '
-    color = gets.chomp
-    app.add_label(item, title, color)
-  elsif label_decision.to_i.is_a? Integer
-    label_index = label_decision.to_i - 1
-    label = app.label_list[app.menu.to_s.to_sym][label_index][:ref]
-    label.add_item(item)
-  else
-    puts ''
-    puts 'Invalid input! Try again!'
-    create_new_label(app, item, label_decision)
-  end
-  puts ''
 end
 
 def main

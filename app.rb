@@ -44,7 +44,7 @@ class App
   end
 
   def game_menu_actions
-     decision = take_action
+    decision = take_action
     puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
     decision == 10 && exit_app
     methods = [
@@ -65,14 +65,14 @@ class App
   end
 
   def take_action
-   print '--> '
-   decision = gets.chomp.to_i
-   puts ''
-   decision
-  end  
+    print '--> '
+    decision = gets.chomp.to_i
+    puts ''
+    decision
+  end
 
   def run
-    case  @create_classes.menu
+    case @create_classes.menu
     when 'main'
       display_main_options
       main_menu_actions
@@ -90,28 +90,28 @@ class App
     end
   end
 
-  def add_book(date, publisher, cover_state)
-    @create_classes.add_book(date, publisher, cover_state)
+  def add_book
+    @user_interaction.add_book
   end
 
-  def add_music(name, publish_date, on_spotify)
-    @create_classes.add_music(name, publish_date, on_spotify)
+  def add_music
+    @user_interaction.add_music
   end
 
-  def add_game(date, multiplayer, last_played)
-    @create_classes.add_game(date, multiplayer, last_played)
+  def add_game
+    @user_interaction.add_game
   end
 
-  def add_label(item, title, color)
-    create_classes.add_label(item, title, color)
+  def add_label
+    @user_interaction.add_label
   end
 
-  def add_genre(item, name)
-    create_classes.add_genre(item, name)
+  def add_genre
+    @user_interaction.add_genre
   end
 
-  def add_author(item, first_name, last_name)
-    create_classes.add_author(item, first_name, last_name)
+  def add_author
+    @user_interaction.add_author
   end
 
   def display_main_options
