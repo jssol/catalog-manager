@@ -49,8 +49,9 @@ class App
     puts 'Choose an option on the list:'
     puts '-----------------------------'
     puts ''
-    puts ['1 - Add a book', '2 - Add a label', '3 - List books', '4 - List labels', '5 - Go to main menu',
-          '6 - Save and exit']
+    puts ['1 - Add a book', '2 - Add a label', '3 - Add a genre', '4 - Add an author', 
+          '5- List books', '6 - List labels', '7 - List music albums', '8 - List games',
+          '9 - Go to main menu','10 - Save and exit']
 
     puts ''
   end
@@ -61,8 +62,9 @@ class App
     puts 'Choose an option on the list:'
     puts '-----------------------------'
     puts ''
-    puts ['1 - Add a Music', '2 - Add a Genre', '3 - List Musics', '4 - List Genres', '5 - Go to main menu',
-          '6 - Save and exit']
+    puts ['1 - Add a music album', '2 - Add a label', '3 - Add a genre', '4 - Add an author', 
+          '5- List music albums', '6 - List labels', '7 - List music albums', '8 - List games',
+          '9 - Go to main menu','10 - Save and exit']
     puts ''
   end
 
@@ -72,8 +74,9 @@ class App
     puts 'Choose an option on the list:'
     puts '-----------------------------'
     puts ''
-    puts ['1 - Add a game', '2 - Add a author', '3 - List games', '4 - List authors', '5 - Go to main menu',
-          '6 - Save and exit']
+    puts ['1 - Add a game', '2 - Add a label', '3 - Add a genre', '4 - Add an author', 
+          '5- List games', '6 - List labels', '7 - List music albums', '8 - List games',
+          '9 - Go to main menu','10 - Save and exit']
     puts ''
   end
 

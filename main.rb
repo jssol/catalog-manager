@@ -42,7 +42,7 @@ def choose_genre_prompt
   puts ''
 end
 
-def add_genre_to_music(app)
+def add_genre(app)
   if app.music_list.empty?
     puts 'The are no available Muscis to add Genre type!'
     puts ''
@@ -129,7 +129,7 @@ def choose_author_prompt
   puts ''
 end
 
-def add_author_to_game(app)
+def add_author(app)
   if app.game_list.empty?
     puts 'The are no available games to insert an author!!'
     puts ''
@@ -211,7 +211,7 @@ def choose_label_prompt
   puts ''
 end
 
-def add_label_to_book(app)
+def add_label(app)
   if app.book_list.empty?
     puts 'The are no available books to be labelled!'
     puts ''
@@ -270,39 +270,45 @@ def display_labels(app)
 end
 
 def main_menu_actions(app, decision)
-  puts 'Please choose one of the options on the list' unless '1234'.include?(decision)
-  decision == '4' && exit_app
+  puts 'Please choose one of the options on the list' unless (1..4).include?(decision)
+  decision == 4 && exit_app
   methods = [
     method(:display_book_console), method(:display_music_console), method(:display_game_console)
   ]
-  '123'.include?(decision) && methods[decision.to_i - 1].call(app)
+  (1..3).include?(decision) && methods[decision - 1].call(app)
 end
 
 def book_menu_actions(app, decision)
-  puts 'Please choose one of the options on the list' unless '123456'.include?(decision)
-  decision == '6' && exit_app
+  puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
+  decision == 10 && exit_app
   methods = [
-    method(:add_book), method(:add_label_to_book), method(:display_books), method(:display_labels), method(:main_menu)
+    method(:add_book), method(:add_label), method(:add_genre), method(:add_author) 
+    method(:display_books), method(:display_labels), method(:display_genres), method(:display_authors),
+    method(:main_menu)
   ]
-  '12345'.include?(decision) && methods[decision.to_i - 1].call(app)
+  (1..9).include?(decision) && methods[decision - 1].call(app)
 end
 
 def music_menu_actions(app, decision)
-  puts 'Please choose one of the options on the list' unless '123456'.include?(decision)
-  decision == '6' && exit_app
+  puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
+  decision == 10 && exit_app
   methods = [
-    method(:add_music), method(:add_genre_to_music), method(:display_musics), method(:display_genres), method(:main_menu)
+    method(:add_music), method(:add_label), method(:add_genre), method(:add_author) 
+    method(:display_musics), method(:display_labels), method(:display_genres), method(:display_authors),
+    method(:main_menu)
   ]
-  '12345'.include?(decision) && methods[decision.to_i - 1].call(app)
+  (1..9).include?(decision) && methods[decision - 1].call(app)
 end
 
 def game_menu_actions(app, decision)
-  puts 'Please choose one of the options on the list' unless '123456'.include?(decision)
-  decision == '6' && exit_app
+  puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
+  decision == 10 && exit_app
   methods = [
-    method(:add_game), method(:add_author_to_game), method(:display_games), method(:display_authors), method(:main_menu)
-  ]
-  '12345'.include?(decision) && methods[decision.to_i - 1].call(app)
+    method(:add_game), method(:add_label), method(:add_genre), method(:add_author) 
+    method(:display_games), method(:display_labels), method(:display_genres), method(:display_authors),
+    method(:main_menu)
+  ]  
+  (1..9).include?(decision) && methods[decision - 1].call(app)
 end
 
 def exit_app
@@ -328,7 +334,7 @@ end
 
 def take_action(app)
   print '--> '
-  decision = gets.chomp
+  decision = gets.chomp.to_i
   puts ''
   menu_type(app, decision)
 end
