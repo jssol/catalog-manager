@@ -23,7 +23,11 @@ class Item
   end
 
   def add_author(author)
-    author.is_a?(Author) && @author.nil? && (
+    !author.is_a?(Author) && (
+      puts 'Wrong paramater. This method only accepts instances of Author class'
+      return
+    )
+    @author.nil? && (
       @author = author
       author.add_item(self)
     )

@@ -1,6 +1,5 @@
 require_relative './display'
 require_relative './user_interaction'
-require_relative './choose_menu'
 
 class App
   attr_reader :create_classes
@@ -61,6 +60,7 @@ class App
 
   def exit_app
     puts 'Thank you for using this app!'
+    @create_classes.save_files
     exit
   end
 

@@ -4,6 +4,7 @@ require_relative './music_album'
 require_relative './genre'
 require_relative './label'
 require_relative './game'
+require_relative './game_storage'
 
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
@@ -15,6 +16,33 @@ class CreateClasses
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
     @author_list = { book: [], musicalbum: [], game: [] }
+    recover_games
+  end
+
+  def save_files
+    GameStorage.new.save_games(@item_list[:game])
+  end
+
+  def recover_games
+    GameStorage.new.load_games.each_with_index do |game, i|
+      add_game(game['publish_date'], game['multiplayer'], game['last_played_at'])
+      added_game = @item_list[:game][i]
+      game['label'] && (
+        label = Label.new(game['label']['title'], game['label']['color'])
+        label.add_item(added_game)
+        @label_list[:game].push({ ref: label, title: label.title, color: label.color })
+      )
+      game['genre'] && (
+        genre = Genre.new(game['genre']['name'])
+        genre.add_item(added_game)
+        @genre_list[:game].push({ ref: genre, title: genre.name })
+      )
+      game['author'] && (
+        author = Author.new(game['author']['first_name'], game['author']['last_name'])
+        author.add_item(added_game)
+        @author_list[:game].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
+      )
+    end
   end
 
   def add_book(date, publisher, cover_state)
@@ -27,8 +55,8 @@ class CreateClasses
     @item_list[:musicalbum] << music
   end
 
-  def add_game(date, multiplayer, last_played)
-    game = Game.new(date, multiplayer, last_played)
+  def add_game(date, multiplayer, last_played_at)
+    game = Game.new(date, multiplayer, last_played_at)
     @item_list[:game] << game
   end
 
