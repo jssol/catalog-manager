@@ -1,6 +1,6 @@
 [
   {
-    "id": 408,
+    "id": 458,
     "genre": {
       "name": "Action"
     },
@@ -18,7 +18,7 @@
     "cover_state": "good"
   },
   {
-    "id": 881,
+    "id": 238,
     "genre": {
       "name": "Adventure"
     },
@@ -34,5 +34,15 @@
     "archived": false,
     "publisher": "Saied",
     "cover_state": "bad"
+  },
+  {
+    "id": 694,
+    "genre": null,
+    "author": null,
+    "label": null,
+    "publish_date": "2022-02-15",
+    "archived": false,
+    "publisher": "Amagrone",
+    "cover_state": "good"
   }
 ]
