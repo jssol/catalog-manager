@@ -5,6 +5,7 @@ require_relative './genre'
 require_relative './label'
 require_relative './game'
 require_relative './game_storage'
+require_relative './book_storage'
 
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
@@ -20,11 +21,35 @@ class CreateClasses
   end
 
   def recover_files
+    recover_books
     recover_games
   end
 
   def save_files
+    BookStorage.new.save_books(@item_list[:book])
     GameStorage.new.save_games(@item_list[:game])
+  end
+
+  def recover_books
+    BookStorage.new.load_books.each_with_index do |book, i|
+      add_book(book['publish_date'], book['publisher'], book['cover_state'])
+      added_book = @item_list[:book][i]
+      book['label'] && (
+        label = Label.new(book['label']['title'], book['label']['color'])
+        label.add_item(added_book)
+        @label_list[:book].push({ ref: label, title: label.title, color: label.color })
+      )
+      book['genre'] && (
+        genre = Genre.new(book['genre']['name'])
+        genre.add_item(added_book)
+        @genre_list[:book].push({ ref: genre, title: genre.name })
+      )
+      book['author'] && (
+        author = Author.new(book['author']['first_name'], book['author']['last_name'])
+        author.add_item(added_book)
+        @author_list[:book].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
+      )
+    end
   end
 
   def recover_games
