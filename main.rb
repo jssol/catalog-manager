@@ -145,8 +145,8 @@ def add_game(app)
   multiplayer = true if multiplayer_value == 'y'
   multiplayer = false if multiplayer_value == 'n'
   print 'last played(YY-MM-DD): '
-  last_played = gets.chomp
-  app.add_game(date, multiplayer, last_played)
+  last_played_at = gets.chomp
+  app.add_game(date, multiplayer, last_played_at)
   puts ''
   puts 'game created successfully!'
 end
