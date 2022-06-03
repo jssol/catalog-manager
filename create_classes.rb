@@ -20,14 +20,10 @@ class CreateClasses
   end
 
   def save_files
-    instance_variables.each do |var|
-      file_name = var.to_s.delete('@')
-      file = instance_variable_get(var)
-      # instance_variable_get(var).each do |obj|
-      #   file.push({ ref: obj, value: to_hash(obj) })
-      # end
-      @file_manager.save_file("./data/#{file_name}.json", file) if var.size.positive?
-    end
+    @file_manager.save_file('./data/book_list.json', @item_list[:book])
+    @file_manager.save_file('./data/label_list.json', @label_list)
+    @file_manager.save_file('./data/genre_list.json', @genre_list)
+    @file_manager.save_file('./data/author_list.json', @author_list)
   end
 
   # def recover_files
@@ -41,17 +37,17 @@ class CreateClasses
 
   def add_book(date, publisher, cover_state)
     book = Book.new(date, publisher, cover_state)
-    @item_list[:book] << { ref: book, publisher: book.publisher, cover_state: book.cover_state }
+    @item_list[:book] << book
   end
 
   def add_music(name, publish_date, on_spotify)
     music = MusicAlbum.new(name, publish_date, on_spotify)
-    @item_list[:musicalbum] << { ref: music, publish_date: music.publish_date, on_spotify: music.on_spotify }
+    @item_list[:musicalbum] << music
   end
 
-  def add_game(date, multiplayer, last_played)
-    game = Game.new(date, multiplayer, last_played)
-    @item_list[:game] << { ref: game, multiplayer: game.multiplayer, last_played: game.last_played }
+  def add_game(date, multiplayer, last_played_at)
+    game = Game.new(date, multiplayer, last_played_at)
+    @item_list[:game] << game
   end
 
   def add_label(item, title, color)
@@ -62,7 +58,7 @@ class CreateClasses
 
   def create_new_label(item, label_decision)
     label_decision = label_decision.downcase.strip
-    !item[:label].nil? && (
+    !item.label.nil? && (
       puts 'This item already has a label'
       return
     )
@@ -91,7 +87,7 @@ class CreateClasses
 
   def create_new_genre(item, genre_decision)
     genre_decision = genre_decision.downcase.strip
-    !item[:genre].nil? && (
+    !item.genre.nil? && (
       puts 'This item already has a genre'
       return
     )
@@ -118,7 +114,7 @@ class CreateClasses
 
   def create_new_author(item, author_decision)
     author_decision = author_decision.downcase.strip
-    !item[:author].nil? && (
+    !item.author.nil? && (
       puts 'This item already has an author'
       return
     )

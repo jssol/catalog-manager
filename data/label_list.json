@@ -1,23 +1,15 @@
 {
   "book": [
     {
-      "ref": "#<Label:0x00007f6ecbbf65a8>",
-      "title": "adfa",
-      "color": "asfd"
+      "ref": "#<Label:0x00007fb8f92fb368>",
+      "title": "dfasdfa",
+      "color": "fadsfasdf"
     }
   ],
   "musicalbum": [
-    {
-      "ref": "#<Label:0x00007f6ecf15db10>",
-      "title": "fasd",
-      "color": "fadf"
-    }
+
   ],
   "game": [
-    {
-      "ref": "#<Label:0x00007f6ecbc0fe90>",
-      "title": "fadsf",
-      "color": "fasdf"
-    }
+
   ]
 }

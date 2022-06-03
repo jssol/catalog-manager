@@ -1,23 +1,15 @@
 {
   "book": [
     {
-      "ref": "#<Author:0x00007f6ecbbf9d20>",
-      "first_name": "fsdf",
-      "last_name": "dfa"
+      "ref": "#<Author:0x00007fb8f5d56a78>",
+      "first_name": "fsdfasd",
+      "last_name": "fadsfa"
     }
   ],
   "musicalbum": [
-    {
-      "ref": "#<Author:0x00007f6ecbbae488>",
-      "first_name": "sdfa",
-      "last_name": "adf"
-    }
+
   ],
   "game": [
-    {
-      "ref": "#<Author:0x00007f6ecbb93700>",
-      "first_name": "fadsf",
-      "last_name": "afd"
-    }
+
   ]
 }

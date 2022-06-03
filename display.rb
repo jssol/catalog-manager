@@ -48,7 +48,7 @@ class Display
       return
     end
     book_list.each_with_index do |book, index|
-      puts "#{index + 1} - Publisher: #{book[:publisher]}, Cover state: #{book[:cover_state]}"
+      puts "#{index + 1} - Publisher: #{book.publisher}, Cover state: #{book.cover_state}"
       puts ''
     end
   end
@@ -61,8 +61,8 @@ class Display
     end
     music_list.each_with_index do |music, index|
       puts "#{index + 1}) music album details:"
-      puts "Music Album: #{music[:name]}"
-      puts "On spotify: #{music[:on_spotify]}"
+      puts "Music Album: #{music.name}"
+      puts "On spotify: #{music.on_spotify}"
     end
     puts ''
   end
@@ -74,11 +74,11 @@ class Display
       return
     end
     game_list.each_with_index do |game, i|
-      multiplayer_value = game[:multiplayer]
+      multiplayer_value = game.multiplayer
       multiplayer = 'yes' if multiplayer_value
       multiplayer = 'no' unless multiplayer_value
-      print "\n#{i + 1} - Publish date: #{game[:publish_date]}, Multiplayer: #{multiplayer.capitalize}, "
-      print "Last played: #{game[:last_played]}"
+      print "\n#{i + 1} - Publish date: #{game.publish_date}, Multiplayer: #{multiplayer.capitalize}, "
+      print "Last played: #{game.last_played_at}"
     end
     puts ''
   end
