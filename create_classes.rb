@@ -4,7 +4,7 @@ require_relative './music_album'
 require_relative './genre'
 require_relative './label'
 require_relative './game'
-require_relative './game_storage'
+require_relative './music_storage'
 
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
@@ -12,35 +12,36 @@ class CreateClasses
 
   def initialize
     @menu = 'main'
+    @file_manager = FileManager.new
     @item_list = { book: [], musicalbum: [], game: [] }
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
     @author_list = { book: [], musicalbum: [], game: [] }
-    recover_games
+    recover_musics
   end
 
   def save_files
-    GameStorage.new.save_games(@item_list[:game])
+    MusicStorage.new.save_musics(@item_list[:musicalbum])
   end
 
-  def recover_games
-    GameStorage.new.load_games.each_with_index do |game, i|
-      add_game(game['publish_date'], game['multiplayer'], game['last_played_at'])
-      added_game = @item_list[:game][i]
-      game['label'] && (
-        label = Label.new(game['label']['title'], game['label']['color'])
-        label.add_item(added_game)
-        @label_list[:game].push({ ref: label, title: label.title, color: label.color })
+  def recover_musics
+    MusicStorage.new.load_musics.each_with_index do |music, i|
+      add_music(music['name'], music['publish_date'], music['on_spotify'])
+      added_music = @item_list[:musicalbum][i]
+      music['label'] && (
+        label = Label.new(music['label']['title'], music['label']['color'])
+        label.add_item(added_music)
+        @label_list[:musicalbum].push({ ref: label, title: label.title, color: label.color })
       )
-      game['genre'] && (
-        genre = Genre.new(game['genre']['name'])
-        genre.add_item(added_game)
-        @genre_list[:game].push({ ref: genre, title: genre.name })
+      music['genre'] && (
+        genre = Genre.new(music['genre']['name'])
+        genre.add_item(added_music)
+        @genre_list[:musicalbum].push({ ref: genre, title: genre.name })
       )
-      game['author'] && (
-        author = Author.new(game['author']['first_name'], game['author']['last_name'])
-        author.add_item(added_game)
-        @author_list[:game].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
+      music['author'] && (
+        author = Author.new(music['author']['first_name'], music['author']['last_name'])
+        author.add_item(added_music)
+        @author_list[:musicalbum].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
       )
     end
   end
@@ -93,20 +94,24 @@ class CreateClasses
   end
 
   def create_new_genre(item, genre_decision)
-    puts ''
-    if genre_decision.downcase == 'new'
-      print 'Enter the Genre type: '
+    genre_decision = genre_decision.downcase.strip
+    !item.genre.nil? && (
+      puts 'This item already has a genre'
+      return
+    )
+    if genre_decision == 'new'
+      print 'Enter the genre: '
       title = gets.chomp
       add_genre(item, title)
-    elsif genre_decision.to_i.is_a? Integer
+    elsif genre_decision.to_i.is_a?(Integer)
       genre_index = genre_decision.to_i - 1
       genre = @genre_list[@menu.to_s.to_sym][genre_index][:ref]
       genre.add_item(item)
     else
-      puts 'invalid input!'
+      puts "\n\nInvalid input! Try again!"
       create_new_genre(item, genre_decision)
     end
-    puts ''
+    puts 'The genre has been added successfully!'
   end
 
   def add_author(item, first_name, last_name)
