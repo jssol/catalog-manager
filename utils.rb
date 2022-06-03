@@ -24,4 +24,13 @@ module Utils
       return false
     end
   end
+
+  def self.validate_input(input)
+    loop do
+     return input unless input.strip.empty?
+     puts 'Input should not be empty.'
+     puts "#{input} :"
+     input = gets.chomp
+    end 
+  end  
 end

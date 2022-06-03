@@ -52,5 +52,16 @@ module RecoverFiles
         label.add_item(added_game)
         @label_list[:game].push({ ref: label, title: label.title, color: label.color })
       )
+      game['genre'] && (
+        genre = Genre.new(game['genre']['name'])
+        genre.add_item(added_game)
+        @genre_list[:game].push({ ref: genre, title: genre.name })
+      )
+      game['author'] && (
+        author = Author.new(game['author']['first_name'], game['author']['last_name'])
+        author.add_item(added_game)
+        @author_list[:game].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
+      )
+    end
   end
 end
