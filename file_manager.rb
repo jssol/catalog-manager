@@ -31,8 +31,29 @@ class FileManager
     end
   end
 
+  def recover_labels(add_label)
+    labels = get_file('./data/label_list.json')
+    
+    labels.each do |key, items_label|
+      items_label.each do |label|
+        title = label['title']
+        color = label['color']
+        label_ref = label['ref']
+      end
+    end
+  end
+
+  def get_item_to_label(label_ref, items_list)
+    items_list.each do |item|
+      return item if item['label'] == label_ref
+    end
+  end
+
   def get_file(path)
     response = []
+    if path.include('author_list') || path.include('label_list') || path.include('genre_list')
+      response = { book: [], musicalbum: [], game: [] }
+    end
     response = from_json(File.read(path)) if File.exist?(path)
     response
   end

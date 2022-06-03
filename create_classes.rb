@@ -29,6 +29,7 @@ class CreateClasses
 
   def recover_files
     @file_manager.recover_books(method(:add_book))
+    @file_manager.recover_labels(method(:add_label))
   end
 
   def add_book(date, publisher, cover_state)
