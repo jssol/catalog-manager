@@ -1,0 +1,20 @@
+[
+  {
+    "id": 907,
+    "genre": {
+      "name": "Electro dance"
+    },
+    "author": {
+      "first_name": "Rophan",
+      "last_name": "R."
+    },
+    "label": {
+      "title": "Refelction",
+      "color": "black"
+    },
+    "publish_date": "2018-05-17",
+    "archived": false,
+    "name": "Reflection",
+    "on_spotify": true
+  }
+]

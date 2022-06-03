@@ -6,6 +6,7 @@ require_relative './label'
 require_relative './game'
 require_relative './game_storage'
 require_relative './book_storage'
+require_relative './music_storage'
 
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
@@ -13,6 +14,7 @@ class CreateClasses
 
   def initialize
     @menu = 'main'
+    @file_manager = FileManager.new
     @item_list = { book: [], musicalbum: [], game: [] }
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
@@ -22,11 +24,13 @@ class CreateClasses
 
   def recover_files
     recover_books
+    recover_musics
     recover_games
   end
 
   def save_files
     BookStorage.new.save_books(@item_list[:book])
+    MusicStorage.new.save_musics(@item_list[:musicalbum])
     GameStorage.new.save_games(@item_list[:game])
   end
 
@@ -60,16 +64,26 @@ class CreateClasses
         label = Label.new(game['label']['title'], game['label']['color'])
         label.add_item(added_game)
         @label_list[:game].push({ ref: label, title: label.title, color: label.color })
+  end
+
+  def recover_musics
+    MusicStorage.new.load_musics.each_with_index do |music, i|
+      add_music(music['name'], music['publish_date'], music['on_spotify'])
+      added_music = @item_list[:musicalbum][i]
+      music['label'] && (
+        label = Label.new(music['label']['title'], music['label']['color'])
+        label.add_item(added_music)
+        @label_list[:musicalbum].push({ ref: label, title: label.title, color: label.color })
       )
-      game['genre'] && (
-        genre = Genre.new(game['genre']['name'])
-        genre.add_item(added_game)
-        @genre_list[:game].push({ ref: genre, title: genre.name })
+      music['genre'] && (
+        genre = Genre.new(music['genre']['name'])
+        genre.add_item(added_music)
+        @genre_list[:musicalbum].push({ ref: genre, title: genre.name })
       )
-      game['author'] && (
-        author = Author.new(game['author']['first_name'], game['author']['last_name'])
-        author.add_item(added_game)
-        @author_list[:game].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
+      music['author'] && (
+        author = Author.new(music['author']['first_name'], music['author']['last_name'])
+        author.add_item(added_music)
+        @author_list[:musicalbum].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
       )
     end
   end
