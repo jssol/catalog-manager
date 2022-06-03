@@ -2,33 +2,7 @@ require 'json'
 
 class FileManager
   def save_file(path, file)
-    File.write(path, to_json(file)) if file.size.positive?
-  end
-
-  def write_musics(path, musics)
-    album = []
-    musics.each do |music|
-      album << {
-        ref: music,
-        name: music.name,
-        on_spotify: music.on_spotify,
-        genre: music.genre,
-        author: music.author,
-        label: music.label,
-        publish_date: music.publish_date
-      }
-    end
-    save_file(path, album)
-  end
-
-  def read_musics(add_music)
-    albums = get_file('./data/music_list.json')
-    albums.each do |music|
-      name = music['name']
-      publish_date = music['publish_date']
-      on_spotify = music['on_spotify']
-      add_music.call(name, publish_date, on_spotify)
-    end
+    File.write(path, to_json(file))
   end
 
   def get_file(path)

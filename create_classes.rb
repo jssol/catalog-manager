@@ -4,7 +4,7 @@ require_relative './music_album'
 require_relative './genre'
 require_relative './label'
 require_relative './game'
-require_relative './file_manager'
+require_relative './music_storage'
 
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
@@ -17,18 +17,33 @@ class CreateClasses
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
     @author_list = { book: [], musicalbum: [], game: [] }
-    read_files
+    recover_musics
   end
 
   def save_files
-    @file_manager.write_musics('./data/music_list.json', @item_list[:musicalbum])
-    @file_manager.save_file('./data/label_list.json', @label_list)
-    @file_manager.save_file('./data/genre_list.json', @genre_list)
-    @file_manager.save_file('./data/author_list.json', @author_list)
+    MusicStorage.new.save_musics(@item_list[:musicalbum])
   end
 
-  def read_files
-    @file_manager.read_musics(method(:add_music))
+  def recover_musics
+    MusicStorage.new.load_musics.each_with_index do |music, i|
+      add_music(music['name'], music['publish_date'], music['on_spotify'])
+      added_music = @item_list[:musicalbum][i]
+      music['label'] && (
+        label = Label.new(music['label']['title'], music['label']['color'])
+        label.add_item(added_music)
+        @label_list[:musicalbum].push({ ref: label, title: label.title, color: label.color })
+      )
+      music['genre'] && (
+        genre = Genre.new(music['genre']['name'])
+        genre.add_item(added_music)
+        @genre_list[:musicalbum].push({ ref: genre, title: genre.name })
+      )
+      music['author'] && (
+        author = Author.new(music['author']['first_name'], music['author']['last_name'])
+        author.add_item(added_music)
+        @author_list[:musicalbum].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
+      )
+    end
   end
 
   def add_book(date, publisher, cover_state)
@@ -41,8 +56,8 @@ class CreateClasses
     @item_list[:musicalbum] << music
   end
 
-  def add_game(date, multiplayer, last_played)
-    game = Game.new(date, multiplayer, last_played)
+  def add_game(date, multiplayer, last_played_at)
+    game = Game.new(date, multiplayer, last_played_at)
     @item_list[:game] << game
   end
 
