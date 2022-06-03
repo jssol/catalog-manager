@@ -17,6 +17,7 @@ class CreateClasses
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
     @author_list = { book: [], musicalbum: [], game: [] }
+    recover_files
   end
 
   def save_files
@@ -26,14 +27,9 @@ class CreateClasses
     @file_manager.save_file('./data/author_list.json', @author_list)
   end
 
-  # def recover_files
-  #   book_file = get_file('./data/book_list.json')
-  #   people_file = get_file('./data/people_list.json')
-  #   rental_file = get_file('./data/rental_list.json')
-  #   recover_books(book_file)
-  #   recover_people(people_file)
-  #   recover_rentals(rental_file, book_file, people_file)
-  # end
+  def recover_files
+    @file_manager.recover_books(method(:add_book))
+  end
 
   def add_book(date, publisher, cover_state)
     book = Book.new(date, publisher, cover_state)

@@ -21,6 +21,16 @@ class FileManager
     save_file(path, temp_books)
   end
 
+  def recover_books(add_book)
+    books = get_file('./data/book_list.json')
+    books.each do |book|
+      date = book['publish_date']
+      publisher = book['publisher']
+      cover_state = book['cover_state']
+      add_book.call(date, publisher, cover_state)
+    end
+  end
+
   def get_file(path)
     response = []
     response = from_json(File.read(path)) if File.exist?(path)
