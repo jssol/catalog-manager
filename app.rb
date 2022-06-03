@@ -1,164 +1,156 @@
-require_relative './book'
-require_relative './author'
-require_relative './music_album'
-require_relative './genre'
-require_relative './label'
-require_relative './game'
-require_relative './utils'
+require_relative './display'
+require_relative './user_interaction'
+require_relative './choose_menu'
 
 class App
-  attr_reader :book_list, :label_list, :game_list, :author_list, :music_list, :genre_list
-  attr_accessor :menu
+  attr_reader :create_classes
 
   def initialize
-    @menu = 'main'
-    @book_list = []
-    @music_list = []
-    @game_list = []
-    @label_list = {
-      book: [],
-      musicalbum: [],
-      game: []
-    }
-    @genre_list = {
-      book: [],
-      musicalbum: [],
-      game: []
-    }
-    @author_list = {
-      book: [],
-      musicalbum: [],
-      game: []
-    }
+    @user_interaction = UserInteraction.new
+    @create_classes = @user_interaction.create_classes
+  end
+
+  def main_menu_actions
+    decision = take_action
+    puts 'Please choose one of the options on the list' unless (1..4).include?(decision)
+    decision == 4 && exit_app
+    @create_classes.menu = 'book' if decision == 1
+    @create_classes.menu = 'musicalbum' if decision == 2
+    @create_classes.menu = 'game' if decision == 3
+  end
+
+  def book_menu_actions
+    decision = take_action
+    puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
+    decision == 10 && exit_app
+    methods = [
+      method(:add_book), method(:add_label), method(:add_genre), method(:add_author),
+      method(:display_books), method(:display_labels), method(:display_genres), method(:display_authors),
+      method(:main_menu)
+    ]
+    (1..9).include?(decision) && methods[decision - 1].call
+  end
+
+  def music_menu_actions
+    decision = take_action
+    puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
+    decision == 10 && exit_app
+    methods = [
+      method(:add_music), method(:add_label), method(:add_genre), method(:add_author),
+      method(:display_musics), method(:display_labels), method(:display_genres), method(:display_authors),
+      method(:main_menu)
+    ]
+    (1..9).include?(decision) && methods[decision - 1].call
+  end
+
+  def game_menu_actions
+    decision = take_action
+    puts 'Please choose one of the options on the list' unless (1..10).include?(decision)
+    decision == 10 && exit_app
+    methods = [
+      method(:add_game), method(:add_label), method(:add_genre), method(:add_author),
+      method(:display_games), method(:display_labels), method(:display_genres), method(:display_authors),
+      method(:main_menu)
+    ]
+    (1..9).include?(decision) && methods[decision - 1].call
+  end
+
+  def main_menu
+    @create_classes.menu = 'main'
+  end
+
+  def exit_app
+    puts 'Thank you for using this app!'
+    exit
+  end
+
+  def take_action
+    print '--> '
+    decision = gets.chomp.to_i
+    puts ''
+    decision
+  end
+
+  def run
+    case @create_classes.menu
+    when 'main'
+      display_main_options
+      main_menu_actions
+    when 'book'
+      display_book_options
+      book_menu_actions
+    when 'musicalbum'
+      display_music_options
+      music_menu_actions
+    when 'game'
+      display_game_options
+      game_menu_actions
+    else
+      puts 'invalid input'
+    end
+  end
+
+  def add_book
+    @user_interaction.add_book
+  end
+
+  def add_music
+    @user_interaction.add_music
+  end
+
+  def add_game
+    @user_interaction.add_game
+  end
+
+  def add_label
+    @user_interaction.add_label
+  end
+
+  def add_genre
+    @user_interaction.add_genre
+  end
+
+  def add_author
+    @user_interaction.add_author
   end
 
   def display_main_options
-    puts ''
-    puts 'Welcome to your catalog manager!'
-    puts ''
-    puts 'Choose an option on the list:'
-    puts '-----------------------------'
-    puts ''
-    puts ['1 - Books', '2 - Music albums', '3 - Games', '4 - Save and exit']
-    puts ''
+    Display.new.display_main_options
   end
 
   def display_book_options
-    puts 'Books catalog'
-    puts ''
-    puts 'Choose an option on the list:'
-    puts '-----------------------------'
-    puts ''
-    puts ['1 - Add a book', '2 - Add a label', '3 - List books', '4 - List labels', '5 - Go to main menu',
-          '6 - Save and exit']
-
-    puts ''
+    Display.new.display_book_options
   end
 
   def display_music_options
-    puts 'Music catalog'
-    puts ''
-    puts 'Choose an option on the list:'
-    puts '-----------------------------'
-    puts ''
-    puts ['1 - Add a Music', '2 - Add a Genre', '3 - List Musics', '4 - List Genres', '5 - Go to main menu',
-          '6 - Save and exit']
-    puts ''
+    Display.new.display_music_options
   end
 
   def display_game_options
-    puts 'Game catalog'
-    puts ''
-    puts 'Choose an option on the list:'
-    puts '-----------------------------'
-    puts ''
-    puts ['1 - Add a game', '2 - Add a author', '3 - List games', '4 - List authors', '5 - Go to main menu',
-          '6 - Save and exit']
-    puts ''
-  end
-
-  def add_book(date, publisher, cover_state)
-    book = Book.new(date, publisher, cover_state)
-    @book_list << book
-  end
-
-  def add_music(name, publish_date, on_spotify)
-    music = MusicAlbum.new(name, publish_date, on_spotify)
-    @music_list << music
-  end
-
-  def add_game(date, multiplayer, last_played)
-    game = Game.new(date, multiplayer, last_played)
-    @game_list << game
-  end
-
-  def add_label(item, title, color)
-    label = Label.new(title, color)
-    label.add_item(item)
-    @label_list[@menu.to_s.to_sym] << { ref: label, title: label.title, color: label.color }
-  end
-
-  def add_genre(item, name)
-    genre = Genre.new(name)
-    genre.add_item(item)
-    @genre_list[@menu.to_s.to_sym] << { ref: genre, title: genre.name }
-  end
-
-  def add_author(item, first_name, last_name)
-    author = Author.new(first_name, last_name)
-    author.add_item(item)
-    @author_list[@menu.to_s.to_sym] << { ref: author, first_name: author.first_name, last_name: author.last_name }
+    Display.new.display_game_options
   end
 
   def display_books
-    @book_list.each_with_index do |book, index|
-      puts "#{index + 1} - Publisher: #{book.publisher}, Cover state: #{book.cover_state}"
-    end
+    Display.new.display_books(@create_classes.item_list[:book])
   end
 
   def display_musics
-    @music_list.each_with_index do |music, index|
-      puts "#{index + 1}) music album details:"
-      puts "Music Album: #{music.name}"
-      puts "On spotify: #{music.on_spotify}"
-      puts
-    end
+    Display.new.display_musics(@create_classes.item_list[:musicalbum])
   end
 
   def display_games
-    @game_list.each_with_index do |game, i|
-      multiplayer_value = game.multiplayer
-      multiplayer = 'yes' if multiplayer_value
-      multiplayer = 'no' unless multiplayer_value
-      print "\n#{i + 1} - Publish date: #{game.publish_date}, Multiplayer: #{multiplayer.capitalize}, "
-      print "Last played: #{game.last_played_at}"
-    end
+    Display.new.display_games(@create_classes.item_list[:game])
   end
 
   def display_labels
-    puts ' Id |       Title       |       Color       '
-    puts '---------------------------------------'
-    @label_list[@menu.to_s.to_sym].each_with_index do |label, index|
-      puts "  #{index + 1} |       #{label[:title]}       |     #{label[:color]}         "
-      puts '---------------------------------------'
-    end
+    Display.new.display_labels(@create_classes.label_list[@create_classes.menu.to_s.to_sym])
   end
 
   def display_genres
-    puts ' Id |       Title       '
-    puts '---------------------------------------'
-    @genre_list[@menu.to_s.to_sym].each_with_index do |genre, index|
-      puts "  #{index + 1} |       #{genre[:title]}   "
-      puts '------------------------------------------'
-    end
+    Display.new.display_genres(@create_classes.genre_list[@create_classes.menu.to_s.to_sym])
   end
 
   def display_authors
-    puts '       first name       |       last name       '
-    puts '--------------------------------------------'
-    @author_list[@menu.to_s.to_sym].each_with_index do |author, i|
-      puts "  #{i + 1} |       #{author[:first_name]}       |       #{author[:last_name]}       "
-      puts '------------------------------------------'
-    end
+    Display.new.display_authors(@create_classes.author_list[@create_classes.menu.to_s.to_sym])
   end
 end
