@@ -20,7 +20,7 @@ class CreateClasses
   end
 
   def save_files
-    @file_manager.save_file('./data/book_list.json', @item_list[:book])
+    @file_manager.save_books('./data/book_list.json', @item_list[:book])
     @file_manager.save_file('./data/label_list.json', @label_list)
     @file_manager.save_file('./data/genre_list.json', @genre_list)
     @file_manager.save_file('./data/author_list.json', @author_list)

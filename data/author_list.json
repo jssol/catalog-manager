@@ -1,9 +1,14 @@
 {
   "book": [
     {
-      "ref": "#<Author:0x00007fb8f5d56a78>",
-      "first_name": "fsdfasd",
-      "last_name": "fadsfa"
+      "ref": "#<Author:0x00007f936d2655e0>",
+      "first_name": "adfdsqewr\t",
+      "last_name": "utyuituyt"
+    },
+    {
+      "ref": "#<Author:0x00007f936d274c20>",
+      "first_name": "yurtyi",
+      "last_name": "kljhjk"
     }
   ],
   "musicalbum": [

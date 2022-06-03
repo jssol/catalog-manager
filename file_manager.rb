@@ -5,6 +5,22 @@ class FileManager
     File.write(path, to_json(file)) if file.size.positive?
   end
 
+  def save_books(path, books)
+    temp_books = []
+    books.each do |book|
+      temp_books << {
+        ref: book,
+        publisher: book.publisher,
+        cover_state: book.cover_state,
+        genre: book.genre,
+        author: book.author,
+        label: book.label,
+        publish_date: book.publish_date
+      }
+    end
+    save_file(path, temp_books)
+  end
+
   def get_file(path)
     response = []
     response = from_json(File.read(path)) if File.exist?(path)

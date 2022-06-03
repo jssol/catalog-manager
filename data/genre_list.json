@@ -1,8 +1,12 @@
 {
   "book": [
     {
-      "ref": "#<Genre:0x00007fb8f5d57e78>",
-      "title": "dfadsf"
+      "ref": "#<Genre:0x00007f936d25ece0>",
+      "title": "dsafd"
+    },
+    {
+      "ref": "#<Genre:0x00007f936d260018>",
+      "title": "dfadafd"
     }
   ],
   "musicalbum": [
