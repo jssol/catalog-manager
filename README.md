@@ -12,7 +12,7 @@
 
 ## Useful links
 
-- [Video Introduction](https://youtu.be/p8N1mAaXhEc)
+- [Video Introduction]([https://youtu.be/p8N1mAaXhEc](https://drive.google.com/file/d/13nROr6JnXPVxqEFFKroV-3rpMJZONnOY/view?usp=sharing))
 
 ## Getting Started
 
