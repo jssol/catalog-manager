@@ -38,8 +38,8 @@ class UserInteraction
     multiplayer = true if multiplayer_value == 'y'
     multiplayer = false if multiplayer_value == 'n'
     print 'last played(YY-MM-DD): '
-    last_played = gets.chomp
-    @create_classes.add_game(date, multiplayer, last_played)
+    last_played_at = gets.chomp
+    @create_classes.add_game(date, multiplayer, last_played_at)
     puts ''
     puts 'game created successfully!'
   end

@@ -1,0 +1,43 @@
+[
+  {
+    "id": 263,
+    "genre": {
+      "name": "Action"
+    },
+    "author": {
+      "first_name": "Saied",
+      "last_name": "Gaffer"
+    },
+    "label": {
+      "title": "Game",
+      "color": "red"
+    },
+    "publish_date": "2020-12-12",
+    "archived": false,
+    "multiplayer": false,
+    "last_played_at": "2022-1-1"
+  },
+  {
+    "id": 505,
+    "genre": null,
+    "author": null,
+    "label": {
+      "title": "Game2",
+      "color": "Black"
+    },
+    "publish_date": "2024-8-12",
+    "archived": false,
+    "multiplayer": false,
+    "last_played_at": "2050-8-12"
+  },
+  {
+    "id": 882,
+    "genre": null,
+    "author": null,
+    "label": null,
+    "publish_date": "2022-5-24",
+    "archived": false,
+    "multiplayer": true,
+    "last_played_at": "2020-4-10"
+  }
+]
