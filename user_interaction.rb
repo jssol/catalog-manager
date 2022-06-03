@@ -1,5 +1,6 @@
 require_relative './create_classes'
 require_relative './display'
+
 class UserInteraction
   attr_reader :create_classes
 

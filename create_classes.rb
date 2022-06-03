@@ -4,7 +4,7 @@ require_relative './music_album'
 require_relative './genre'
 require_relative './label'
 require_relative './game'
-require_relative './file_manager'
+require_relative './game_storage'
 
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
@@ -12,7 +12,6 @@ class CreateClasses
 
   def initialize
     @menu = 'main'
-    @file_manager = FileManager.new
     @item_list = { book: [], musicalbum: [], game: [] }
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
@@ -20,16 +19,34 @@ class CreateClasses
     recover_files
   end
 
-  def save_files
-    @file_manager.save_books('./data/book_list.json', @item_list[:book])
-    @file_manager.save_file('./data/label_list.json', @label_list)
-    @file_manager.save_file('./data/genre_list.json', @genre_list)
-    @file_manager.save_file('./data/author_list.json', @author_list)
+  def recover_files
+    recover_games
   end
 
-  def recover_files
-    @file_manager.recover_books(method(:add_book))
-    @file_manager.recover_labels(method(:add_label))
+  def save_files
+    GameStorage.new.save_games(@item_list[:game])
+  end
+
+  def recover_games
+    GameStorage.new.load_games.each_with_index do |game, i|
+      add_game(game['publish_date'], game['multiplayer'], game['last_played_at'])
+      added_game = @item_list[:game][i]
+      game['label'] && (
+        label = Label.new(game['label']['title'], game['label']['color'])
+        label.add_item(added_game)
+        @label_list[:game].push({ ref: label, title: label.title, color: label.color })
+      )
+      game['genre'] && (
+        genre = Genre.new(game['genre']['name'])
+        genre.add_item(added_game)
+        @genre_list[:game].push({ ref: genre, title: genre.name })
+      )
+      game['author'] && (
+        author = Author.new(game['author']['first_name'], game['author']['last_name'])
+        author.add_item(added_game)
+        @author_list[:game].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
+      )
+    end
   end
 
   def add_book(date, publisher, cover_state)

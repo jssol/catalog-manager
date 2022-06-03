@@ -1,6 +1,5 @@
 require_relative './display'
 require_relative './user_interaction'
-require_relative './choose_menu'
 
 class App
   attr_reader :create_classes
