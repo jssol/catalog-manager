@@ -1,0 +1,20 @@
+[
+  {
+    "id": 481,
+    "genre": {
+      "name": "Simulation"
+    },
+    "author": {
+      "first_name": "E.A.",
+      "last_name": "Sports"
+    },
+    "label": {
+      "title": "Football",
+      "color": "Blue"
+    },
+    "publish_date": "2022-02-17",
+    "archived": false,
+    "multiplayer": true,
+    "last_played_at": "2022-06-02"
+  }
+]
