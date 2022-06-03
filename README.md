@@ -1,72 +1,46 @@
-# Javascript Captsone: Film Guru
+# Ruby Captsone: Catalog Manager
 
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-> This project is the second capstone project from Microverse. We created a webapp for movies enthusiast so they can search and find their favorite movies. The project uses OMDb API to get info about movies, and 'involvment' API to Send & get likes and comments.
-
-## Screenshots
-
-- **Homepage**
-
-![home-screeshot](./Screenshot1.png)
-
-- **Movie popup**
-
-![movie-popup](./Screenshot2.png)
+> This is a console app that helps users to manage the catalog of their books, games, and music built with ruby.
 
 ## Built With
 
-- HTML/CSS
-- JavaScript(ES6)
-- Webpack
-- OMDbAPI and Involvment API
+- Ruby
+- Irb, Pry
+- Pair-programming, Gitflow
 
 ## Useful links
 
-- [Live Demo Link](https://jssol.github.io/api-based-webapp/)
 - [Video Introduction](https://youtu.be/p8N1mAaXhEc)
 
 ## Getting Started
 
 ### Prerequisites
 
-You need to have a browser and this tools installed:
+You need to have these tools installed:
 
+- Ruby
 - Git
-- NodeJS
 
 ### Setup
 
 To get a local copy up and running follow these simple example steps:
 
 ```
-$ git clone git@github.com:jssol/api-based-webapp.git
+$ git clone git@github.com:jssol/catalog-manager.git
 ```
 
 ```
-$ cd api-based-webapp
-```
-
-```
-$ npm i
-```
-
-```
-$ npm start
+$ cd catalog-manager
 ```
 
 ### Usage
 
-To build a version of the website under Development mode:
+To run the app locally do:
 
 ```
-$ npm run dev
-```
-
-To build the production version:
-
-```
-$ npm run build
+$ ruby main.rb
 ```
 
 ### Run tests
@@ -74,15 +48,7 @@ $ npm run build
 To run tests in terminal use:
 
 ```
-npm test
-```
-
-### Deployment
-
-To deploy the project to Githubpages run:
-
-```
-npm run deploy
+rspec
 ```
 
 ## Authors
@@ -93,11 +59,17 @@ npm run deploy
 - Twitter: [@jsivahera](https://twitter.com/jsivahera)
 - LinkedIn: [jsivahera](https://linkedin.com/in/jsivahera)
 
-👤 **Ismail Courr**
+👤 **Saied Gaffer**
 
-- GitHub: [@ismailco](https://github.com/ismailco)
-- Twitter: [@ismailcourr](https://twitter.com/ismailcourr)
-- LinkedIn: [Ismail Courr](https://linkedin.com/in/ismailcourr)
+- GitHub: [@Saied2035](https://github.com/saied2035)
+- Twitter: [@SaiedGaffer](https://twitter.com/SaiedGaffer)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/saiedgaffer/)
+
+👤 **Abenezer Tilahun**
+
+- GitHub: [@Abenezer](https://github.com/Abenezer-Tilahun)
+- Twitter: [@AbenezerTilah11](https://twitter.com/AbenezerTilah11)
+- LinkedIn: [Abenezer Tilahun](https://www.linkedin.com/in/abenezer-tilahun/)
 
 ## 🤝 Contributing
 

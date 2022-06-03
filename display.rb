@@ -15,7 +15,7 @@ class Display
   end
 
   def display_book_options
-    print "\n\nBooks catalog\n\n"
+    print "\nBooks catalog\n\n"
     puts 'Choose an option on the list:'
     print "-----------------------------\n\n"
     puts ['1 - Add a book', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
@@ -24,7 +24,7 @@ class Display
   end
 
   def display_music_options
-    print "\n\nMusic catalog\n\n"
+    print "\nMusic catalog\n\n"
     puts 'Choose an option on the list:'
     print "-----------------------------\n\n"
     puts ['1 - Add a music album', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
@@ -33,7 +33,7 @@ class Display
   end
 
   def display_game_options
-    print "\n\nGame catalog\n\n"
+    print "\nGame catalog\n\n"
     puts 'Choose an option on the list:'
     print "-----------------------------\n"
     puts ['1 - Add a game', '2 - Add a label', '3 - Add a genre', '4 - Add an author',
@@ -113,13 +113,13 @@ class Display
   end
 
   def choose_item_to_genre_prompt
-    puts 'Choose the item to Genre by number:'
-    print "-----------------------------------\n\n"
+    puts 'Choose the item to add a genre by number:'
+    print "------------------------------------------\n\n"
   end
 
   def choose_genre_prompt
-    print "\nChoose from the list or create a new Genre:\n"
-    puts '-------------------------------------------'
+    print "\nChoose from the list or create a genre:\n"
+    puts '---------------------------------------'
     print "Type an Id to choose or \"New\" to create a Genre\n\n"
   end
 
@@ -140,7 +140,7 @@ class Display
 
   def choose_item_to_set_author
     puts 'Choose the item to set an author by number:'
-    puts '-----------------------------------'
+    puts '-------------------------------------------'
     puts ''
   end
 

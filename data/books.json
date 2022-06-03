@@ -1,0 +1,48 @@
+[
+  {
+    "id": 458,
+    "genre": {
+      "name": "Action"
+    },
+    "author": {
+      "first_name": "Randal",
+      "last_name": "Jones"
+    },
+    "label": {
+      "title": "Gift",
+      "color": "Red"
+    },
+    "publish_date": "2022-06-03",
+    "archived": false,
+    "publisher": "Global Publisher",
+    "cover_state": "good"
+  },
+  {
+    "id": 238,
+    "genre": {
+      "name": "Adventure"
+    },
+    "author": {
+      "first_name": "Saied",
+      "last_name": "Gaffer"
+    },
+    "label": {
+      "title": "New",
+      "color": "Green"
+    },
+    "publish_date": "2022-05-17",
+    "archived": false,
+    "publisher": "Saied",
+    "cover_state": "bad"
+  },
+  {
+    "id": 694,
+    "genre": null,
+    "author": null,
+    "label": null,
+    "publish_date": "2022-02-15",
+    "archived": false,
+    "publisher": "Amagrone",
+    "cover_state": "good"
+  }
+]

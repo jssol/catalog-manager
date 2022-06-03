@@ -1,5 +1,6 @@
 require_relative './create_classes'
 require_relative './display'
+
 class UserInteraction
   attr_reader :create_classes
 
@@ -9,13 +10,12 @@ class UserInteraction
   end
 
   def add_book
-    print 'Date: '
-    date = gets.chomp
+    publish_date = Utils.get_valid_date('Date')
     print 'Publisher: '
     publisher = gets.chomp
     print 'Cover state: '
     cover_state = gets.chomp
-    @create_classes.add_book(date, publisher, cover_state)
+    @create_classes.add_book(publish_date, publisher, cover_state)
     puts ''
     puts 'Book created successfully!'
   end
@@ -31,15 +31,14 @@ class UserInteraction
   end
 
   def add_game
-    print 'Publish date(YY-MM-DD): '
-    date = gets.chomp
-    print 'Muliplayer[Y/N]:'
+    publish_date = Utils.get_valid_date('Publish date')
+    print 'Muliplayer[Y/N]: '
     multiplayer_value = gets.chomp.downcase
     multiplayer = true if multiplayer_value == 'y'
     multiplayer = false if multiplayer_value == 'n'
     print 'last played(YY-MM-DD): '
     last_played_at = gets.chomp
-    @create_classes.add_game(date, multiplayer, last_played_at)
+    @create_classes.add_game(publish_date, multiplayer, last_played_at)
     puts ''
     puts 'game created successfully!'
   end

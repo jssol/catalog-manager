@@ -4,7 +4,10 @@ require_relative './music_album'
 require_relative './genre'
 require_relative './label'
 require_relative './game'
+require_relative './game_storage'
+require_relative './book_storage'
 require_relative './music_storage'
+require_relative './recover_files'
 
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
@@ -17,34 +20,21 @@ class CreateClasses
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
     @author_list = { book: [], musicalbum: [], game: [] }
+    recover_files
+  end
+
+  def recover_files
+    recover_books
     recover_musics
+    recover_games
   end
 
   def save_files
+    BookStorage.new.save_books(@item_list[:book])
     MusicStorage.new.save_musics(@item_list[:musicalbum])
+    GameStorage.new.save_games(@item_list[:game])
   end
-
-  def recover_musics
-    MusicStorage.new.load_musics.each_with_index do |music, i|
-      add_music(music['name'], music['publish_date'], music['on_spotify'])
-      added_music = @item_list[:musicalbum][i]
-      music['label'] && (
-        label = Label.new(music['label']['title'], music['label']['color'])
-        label.add_item(added_music)
-        @label_list[:musicalbum].push({ ref: label, title: label.title, color: label.color })
-      )
-      music['genre'] && (
-        genre = Genre.new(music['genre']['name'])
-        genre.add_item(added_music)
-        @genre_list[:musicalbum].push({ ref: genre, title: genre.name })
-      )
-      music['author'] && (
-        author = Author.new(music['author']['first_name'], music['author']['last_name'])
-        author.add_item(added_music)
-        @author_list[:musicalbum].push({ ref: author, first_name: author.first_name, last_name: author.last_name })
-      )
-    end
-  end
+  include RecoverFiles
 
   def add_book(date, publisher, cover_state)
     book = Book.new(date, publisher, cover_state)
@@ -68,23 +58,26 @@ class CreateClasses
   end
 
   def create_new_label(item, label_decision)
-    puts ''
-    if label_decision.downcase == 'new'
+    label_decision = label_decision.downcase.strip
+    !item.label.nil? && (
+      puts 'This item already has a label'
+      return
+    )
+    if label_decision == 'new'
       print 'Enter the label title: '
       title = gets.chomp
       print 'Enter the label color: '
       color = gets.chomp
       add_label(item, title, color)
-    elsif label_decision.to_i.is_a? Integer
+    elsif label_decision.to_i.is_a?(Integer)
       label_index = label_decision.to_i - 1
       label = @label_list[@menu.to_s.to_sym][label_index][:ref]
       label.add_item(item)
     else
-      puts ''
-      puts 'Invalid input! Try again!'
+      puts "\n\nInvalid input! Try again!"
       create_new_label(app, item, label_decision)
     end
-    puts ''
+    puts 'The label has been added successfully!'
   end
 
   def add_genre(item, name)
@@ -121,24 +114,25 @@ class CreateClasses
   end
 
   def create_new_author(item, author_decision)
+    author_decision = author_decision.downcase.strip
     !item.author.nil? && (
-      puts 'this item already have an author'
+      puts 'This item already has an author'
       return
     )
-    if author_decision.downcase == 'new'
-      print 'First name: '
+    if author_decision == 'new'
+      print "\n\nFirst name: "
       first_name = gets.chomp
       print 'Last name: '
       last_name = gets.chomp
       add_author(item, first_name, last_name)
-    elsif author_decision.to_i.is_a? Integer
+    elsif author_decision.to_i.is_a?(Integer)
       author_index = author_decision.to_i - 1
       author = @author_list[@menu.to_s.to_sym][author_index][:ref]
       author.add_item(item)
     else
-      puts 'Invaild input!.'
+      puts "\n\nInvalid input! Try again!"
       create_new_author(item, author_decision)
     end
-    puts 'Author added!'
+    puts puts 'The author has been added successfully!'
   end
 end

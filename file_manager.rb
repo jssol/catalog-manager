@@ -2,7 +2,7 @@ require 'json'
 
 class FileManager
   def save_file(path, file)
-    File.write(path, to_json(file))
+    File.write(path, to_json(file)) if file.size.positive?
   end
 
   def get_file(path)
