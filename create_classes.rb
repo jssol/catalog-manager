@@ -17,6 +17,7 @@ class CreateClasses
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
     @author_list = { book: [], musicalbum: [], game: [] }
+    read_files
   end
 
   def save_files

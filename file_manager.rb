@@ -21,6 +21,16 @@ class FileManager
     save_file(path, album)
   end
 
+  def read_musics(add_music)
+    albums = get_file('./data/music_list.json')
+    albums.each do |music|
+      name = music['name']
+      publish_date = music['publish_date']
+      on_spotify = music['on_spotify']
+      add_music.call(name, publish_date, on_spotify)
+    end
+  end
+
   def get_file(path)
     response = []
     response = from_json(File.read(path)) if File.exist?(path)
