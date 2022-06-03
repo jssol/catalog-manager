@@ -4,6 +4,7 @@ require_relative './music_album'
 require_relative './genre'
 require_relative './label'
 require_relative './game'
+require_relative './file_manager'
 
 class CreateClasses
   attr_reader :item_list, :label_list, :genre_list, :author_list
@@ -11,10 +12,22 @@ class CreateClasses
 
   def initialize
     @menu = 'main'
+    @file_manager = FileManager.new
     @item_list = { book: [], musicalbum: [], game: [] }
     @label_list = { book: [], musicalbum: [], game: [] }
     @genre_list = { book: [], musicalbum: [], game: [] }
     @author_list = { book: [], musicalbum: [], game: [] }
+  end
+
+  def save_files
+    @file_manager.write_musics('./data/music_list.json', @item_list[:musicalbum])
+    @file_manager.save_file('./data/label_list.json', @label_list)
+    @file_manager.save_file('./data/genre_list.json', @genre_list)
+    @file_manager.save_file('./data/author_list.json', @author_list)
+  end
+
+  def read_files
+    @file_manager.read_musics(method(:add_music))
   end
 
   def add_book(date, publisher, cover_state)
@@ -65,20 +78,24 @@ class CreateClasses
   end
 
   def create_new_genre(item, genre_decision)
-    puts ''
-    if genre_decision.downcase == 'new'
-      print 'Enter the Genre type: '
+    genre_decision = genre_decision.downcase.strip
+    !item.genre.nil? && (
+      puts 'This item already has a genre'
+      return
+    )
+    if genre_decision == 'new'
+      print 'Enter the genre: '
       title = gets.chomp
       add_genre(item, title)
-    elsif genre_decision.to_i.is_a? Integer
+    elsif genre_decision.to_i.is_a?(Integer)
       genre_index = genre_decision.to_i - 1
       genre = @genre_list[@menu.to_s.to_sym][genre_index][:ref]
       genre.add_item(item)
     else
-      puts 'invalid input!'
+      puts "\n\nInvalid input! Try again!"
       create_new_genre(item, genre_decision)
     end
-    puts ''
+    puts 'The genre has been added successfully!'
   end
 
   def add_author(item, first_name, last_name)

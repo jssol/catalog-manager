@@ -1,0 +1,15 @@
+{
+  "book": [
+
+  ],
+  "musicalbum": [
+    {
+      "ref": "#<Author:0x000001470d499490>",
+      "first_name": "Rophan",
+      "last_name": "R."
+    }
+  ],
+  "game": [
+
+  ]
+}

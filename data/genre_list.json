@@ -1,0 +1,14 @@
+{
+  "book": [
+
+  ],
+  "musicalbum": [
+    {
+      "ref": "#<Genre:0x000001470d49a4d0>",
+      "title": "Electro"
+    }
+  ],
+  "game": [
+
+  ]
+}

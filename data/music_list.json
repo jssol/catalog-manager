@@ -1,0 +1,11 @@
+[
+  {
+    "ref": "#<MusicAlbum:0x000001470d434568>",
+    "name": "Reflection",
+    "on_spotify": true,
+    "genre": "#<Genre:0x000001470d49a4d0>",
+    "author": "#<Author:0x000001470d499490>",
+    "label": "#<Label:0x000001470d49b3d0>",
+    "publish_date": "2018-05-13"
+  }
+]
