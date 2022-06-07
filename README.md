@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-> This is a console app that helps users to manage the catalog of their books, games, and music built with ruby.
+> This is a console app that helps users to manage the catalog of their books, games, and music built with ruby
 
 ## Built With
 
